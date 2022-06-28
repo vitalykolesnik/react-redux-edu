@@ -1,0 +1,11 @@
+.profileInfo {
+}
+
+.profileInfo img{
+    width: 100%;
+    object-fit: cover; 
+}
+
+.descriprioinBlock {
+    padding: 10px;
+}

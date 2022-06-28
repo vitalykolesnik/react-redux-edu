@@ -1,0 +1,11 @@
+.item {
+    color: rgb(255, 255, 255);
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.item img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
