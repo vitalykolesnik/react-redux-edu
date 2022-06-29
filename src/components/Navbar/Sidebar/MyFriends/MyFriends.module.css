@@ -1,0 +1,5 @@
+.item {
+  flex-flow: column wrap;
+  width: 100%;
+}
+

@@ -1,0 +1,10 @@
+.sidebar {
+  margin-top:10px;
+  padding: 2px 10px;
+  border-top: 2px solid white;
+}
+
+.sidebar h3{
+  color: white;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}

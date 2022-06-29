@@ -1,5 +1,17 @@
+.dialog {
+    text-align: center;
+    text-justify: center;
+}
+
 .dialog a{
     color: white;
     text-decoration: none;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.dialog img {
+    height: 100px;  
+    width: 100px;
+    object-fit: cover;  
+    border-radius: 50%;
 }
