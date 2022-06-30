@@ -13,7 +13,7 @@ const App = (props) => {
     return (
         <div className="app-wrapper">
             <Header />
-            <Navbar state={props.state.navBar} />
+            <Navbar navBar={props.state.navBar} />
             <div className="app-wrapper-content">
                 <Routes>
                     <Route
@@ -21,15 +21,17 @@ const App = (props) => {
                         element={
                             <Profile
                                 profilePage={props.state.profilePage}
-                                addPost={props.addPost}
-                                typeText={props.typeText}
+                                dispatch={props.dispatch}
                             />
                         }
                     />
                     <Route
                         path="/dialogs"
                         element={
-                            <Dialogs dialogsPage={props.state.dialogsPage} />
+                            <Dialogs
+                                dialogsPage={props.state.dialogsPage}
+                                dispatch={props.dispatch}
+                            />
                         }
                     />
                     <Route path="/news" element={<News />} />

@@ -6,7 +6,7 @@ const Sidebar = (props) => {
     return (
         <nav className={s.sidebar}>
             <h3>My friends</h3>
-            <MyFriends friends={props.sidebar.friends} />
+            <MyFriends friends={props.sideBar.friends} />
         </nav>
     );
 };

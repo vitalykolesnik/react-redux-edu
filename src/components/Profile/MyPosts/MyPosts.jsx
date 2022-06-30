@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+    addPostActionCreator,
+    typeTextActionCreator,
+} from './../../../redux/store';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
@@ -10,14 +14,11 @@ const MyPosts = (props) => {
     const newPostElement = React.createRef();
 
     const addPost = () => {
-        let text = newPostElement.current.value;
-        props.addPost(text);
-        newPostElement.current.value = '';
+        props.dispatch(addPostActionCreator());
     };
 
     const enterPost = () => {
-        let text = newPostElement.current.value;
-        props.typeText(text);
+        props.dispatch(typeTextActionCreator(newPostElement.current.value));
     };
 
     return (

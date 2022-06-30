@@ -33,7 +33,7 @@ const Navbar = (props) => {
                     Settings
                 </NavLink>
             </div>
-            <Sidebar sidebar={props.state.sideBar} />
+            <Sidebar sideBar={props.navBar.sideBar} />
         </nav>
     );
 };
