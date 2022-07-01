@@ -2,23 +2,22 @@ import React from 'react';
 import {
     addPostActionCreator,
     typeTextActionCreator,
-} from './../../../redux/store';
+} from './../../../redux/profileReduser';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
 const MyPosts = (props) => {
     const postElements = props.posts.map((p) => (
-        <Post key={p.id} message={p.message} likeCount={p.likeCount} />
+        <Post key={p.id} text={p.text} likeCount={p.likeCount} />
     ));
-
-    const newPostElement = React.createRef();
 
     const addPost = () => {
         props.dispatch(addPostActionCreator());
     };
 
-    const enterPost = () => {
-        props.dispatch(typeTextActionCreator(newPostElement.current.value));
+    const enterPost = (e) => {
+        let text = e.target.value;
+        props.dispatch(typeTextActionCreator(text));
     };
 
     return (
@@ -28,8 +27,8 @@ const MyPosts = (props) => {
                 <div>
                     <textarea
                         onChange={enterPost}
-                        ref={newPostElement}
                         value={props.newPostText}
+                        placeholder="Enter your post..."
                     />
                 </div>
                 <div>

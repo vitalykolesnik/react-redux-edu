@@ -1,11 +1,28 @@
 .item {
-    color: rgb(255, 255, 255);
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 1em;
+    margin: 0.5em 0;
+    justify-content: space-between;
+    border-radius: 1em;
+    color: black;
+    background-color: rgba(238, 211, 243, 0.836); 
 }
 
 .item img {
+    object-fit: cover;
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    object-fit: cover;
+}
+
+.itemMessage {
+    margin: 1em 0;
+    padding: 1em 0; 
+    border-radius: 1em;
+    text-align: start;
+}
+
+.itemLikesCount {
+    align-self: flex-start;
 }

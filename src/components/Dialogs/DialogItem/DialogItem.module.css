@@ -1,17 +1,25 @@
-.dialog {
+.dialogItem {
+    width: 100px;
+    flex-flow: row nowrap;
     text-align: center;
-    text-justify: center;
+    display: block;
+    padding: 0.5em 0.2em;  
+    cursor: pointer;  
+    border-radius: 75%;
 }
 
-.dialog a{
+.dialogItem a{
     color: white;
     text-decoration: none;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
-.dialog img {
-    height: 100px;  
-    width: 100px;
+.dialogItem img {
+    height: 80px;  
+    width: 80px;
     object-fit: cover;  
     border-radius: 50%;
+    border: 0.2em solid white;
+    box-shadow: 2px 1px 5px black;
+    
 }

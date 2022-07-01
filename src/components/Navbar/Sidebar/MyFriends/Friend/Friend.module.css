@@ -1,14 +1,20 @@
-.item {
+.friend {
+  width: 100px;
+  display: flex;
+  flex-flow: row wrap;
+  padding-bottom: 0.5em;
 }
 
-.item img{
-  width: 50px;
-  height: 50px;
+.friend img{
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   object-fit: cover;
+  border: 0.2em solid white;
+  box-shadow: 2px 1px 5px black;
 }
 
-.item a{
+.friend a{
   color: white;
   text-decoration: none;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.8);

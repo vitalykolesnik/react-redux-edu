@@ -1,8 +1,17 @@
 .header {
     grid-area: h;
-    background-color: rgba(45, 152, 253, 0.836); 
+    background-image: url(http://dgdesign.ru/uploads/posts/2019-02/1549455082_shapka-sayta-vesna-1151132.jpg); 
+    background-position: right; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    display: flex
 }
   
-.header img {
-    height: 100%;
+.avatar {
+    padding-left: 1em;
+}
+
+.avatar img {
+    height: 100%;    
+    box-sizing: border-box;
 }
