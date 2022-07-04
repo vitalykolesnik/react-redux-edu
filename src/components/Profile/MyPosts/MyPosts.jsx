@@ -1,8 +1,4 @@
 import React from 'react';
-import {
-    addPostActionCreator,
-    typeTextActionCreator,
-} from './../../../redux/profileReduser';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 
@@ -11,13 +7,13 @@ const MyPosts = (props) => {
         <Post key={p.id} text={p.text} likeCount={p.likeCount} />
     ));
 
-    const addPost = () => {
-        props.dispatch(addPostActionCreator());
+    const onAddPost = () => {
+        props.addPost();
     };
 
-    const enterPost = (e) => {
+    const onEnterPost = (e) => {
         let text = e.target.value;
-        props.dispatch(typeTextActionCreator(text));
+        props.typeText(text);
     };
 
     return (
@@ -26,13 +22,13 @@ const MyPosts = (props) => {
             <div>
                 <div>
                     <textarea
-                        onChange={enterPost}
+                        onChange={onEnterPost}
                         value={props.newPostText}
                         placeholder="Enter your post..."
                     />
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>{postElements}</div>

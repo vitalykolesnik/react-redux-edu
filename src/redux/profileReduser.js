@@ -4,6 +4,7 @@ const TYPE_TEXT = 'TYPE-TEXT';
 const initialState = {
     posts: [
         {
+            id: 1,
             text: 'How are you?',
             likeCount: 15,
         },
