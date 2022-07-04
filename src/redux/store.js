@@ -109,6 +109,7 @@ let store = {
             action
         );
         this._state.navBar = navReduser(this._state.navBar, action);
+
         this._callSubscribers();
     },
 };

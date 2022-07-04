@@ -1,7 +1,26 @@
 const ADD_POST = 'ADD-POST';
 const TYPE_TEXT = 'TYPE-TEXT';
 
-const profileReduser = (state, action) => {
+const initialState = {
+    posts: [
+        {
+            text: 'How are you?',
+            likeCount: 15,
+        },
+        {
+            id: 2,
+            text: "It's my first post",
+            likeCount: 20,
+        },
+        {
+            id: 3,
+            text: 'New message',
+            likeCount: 0,
+        },
+    ],
+    newPostText: '',
+};
+const profileReduser = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: {
             const newPost = {
