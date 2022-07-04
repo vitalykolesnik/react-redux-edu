@@ -5,37 +5,10 @@ import {
 } from '../../../redux/profileReduser';
 import MyPosts from './MyPosts';
 
-// const MyPostsContainer = () => {
-//     return (
-//         <StoreContext.Consumer>
-//             {(store) => {
-//                 let state = store.getState().profilePage;
-
-//                 const addPost = () => {
-//                     store.dispatch(addPostActionCreator());
-//                 };
-
-//                 const enterPost = (text) => {
-//                     let action = typeTextActionCreator(text);
-//                     store.dispatch(action);
-//                 };
-
-//                 return (
-//                     <MyPosts
-//                         addPost={addPost}
-//                         typeText={enterPost}
-//                         posts={state.posts}
-//                         newPostText={state.newPostText}
-//                     />
-//                 );
-//             }}
-//         </StoreContext.Consumer>
-//     );
-
 const mapStateToProps = (state) => {
     return {
         posts: state.profilePage.posts,
-        newPostText: state.newPostText,
+        postMessage: state.profilePage.postMessage,
     };
 };
 

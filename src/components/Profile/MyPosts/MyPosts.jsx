@@ -22,7 +22,7 @@ const MyPosts = (props) => {
                 <div>
                     <textarea
                         onChange={onEnterPost}
-                        value={props.newPostText}
+                        value={props.postMessage}
                         placeholder="Enter your post..."
                     />
                 </div>

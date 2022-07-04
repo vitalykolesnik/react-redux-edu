@@ -47,7 +47,7 @@ const initialState = {
             message: 'Kasia: Kskskssss',
         },
     ],
-    newMessageText: '',
+    newMessageText: 'Enter new message...',
 };
 
 const dialogsReduser = (state = initialState, action) => {
@@ -57,15 +57,14 @@ const dialogsReduser = (state = initialState, action) => {
                 id: state.messages.length + 1,
                 message: state.newMessageText,
             };
-            let stateCopy = { ...state };
-            stateCopy.messages = [...state.messages, newMessage];
-            stateCopy.newMessageText = '';
-            return stateCopy;
+            return {
+                ...state,
+                messages: [...state.messages, newMessage],
+                newMessageText: '',
+            };
         }
         case TYPE_MESSAGE: {
-            let stateCopy = { ...state };
-            stateCopy.newMessageText = action.textMessage;
-            return stateCopy;
+            return { ...state, newMessageText: action.textMessage };
         }
         default:
             return state;
