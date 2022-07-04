@@ -12,8 +12,7 @@ const MyPosts = (props) => {
     };
 
     const onEnterPost = (e) => {
-        let text = e.target.value;
-        props.typeText(text);
+        props.typeText(e.target.value);
     };
 
     return (

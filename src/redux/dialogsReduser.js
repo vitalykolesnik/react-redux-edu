@@ -1,6 +1,5 @@
 const SEND_MESSAGE = 'SEND-MESSAGE';
 const TYPE_MESSAGE = 'TYPE-MESSAGE';
-const SELECT_DIALOG = 'SELECT-DIALOG';
 
 const initialState = {
     dialogs: [
@@ -58,17 +57,15 @@ const dialogsReduser = (state = initialState, action) => {
                 id: state.messages.length + 1,
                 message: state.newMessageText,
             };
-            state.messages.push(newMessage);
-            state.newMessageText = '';
-            return state;
+            let stateCopy = { ...state };
+            stateCopy.messages = [...state.messages, newMessage];
+            stateCopy.newMessageText = '';
+            return stateCopy;
         }
         case TYPE_MESSAGE: {
-            state.newMessageText = action.textMessage;
-            return state;
-        }
-        case SELECT_DIALOG: {
-            state.newMessageText = action.name + ': ';
-            return state;
+            let stateCopy = { ...state };
+            stateCopy.newMessageText = action.textMessage;
+            return stateCopy;
         }
         default:
             return state;
@@ -80,11 +77,6 @@ export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE });
 export const typeMessageActionCreator = (text) => ({
     type: TYPE_MESSAGE,
     textMessage: text,
-});
-
-export const selectDialogActionCreator = (name) => ({
-    type: SELECT_DIALOG,
-    name: name,
 });
 
 export default dialogsReduser;

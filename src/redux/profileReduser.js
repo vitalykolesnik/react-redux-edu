@@ -29,13 +29,15 @@ const profileReduser = (state = initialState, action) => {
                 text: state.newPostText,
                 likeCount: 0,
             };
-            state.posts.push(newPost);
-            state.newPostText = '';
-            return state;
+            let stateCopy = { ...state };
+            stateCopy.posts = [...state.posts, newPost]; //stateCopy.posts.push(newPost);
+            stateCopy.newPostText = '';
+            return stateCopy;
         }
         case TYPE_TEXT: {
-            state.newPostText = action.postMessage;
-            return state;
+            let stateCopy = { ...state };
+            stateCopy.newPostText = action.postMessage;
+            return stateCopy;
         }
         default:
             return state;

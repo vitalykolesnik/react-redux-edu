@@ -33,7 +33,7 @@ const Navbar = (props) => {
                     Settings
                 </NavLink>
             </div>
-            <Sidebar sideBar={props.navBar.sideBar} />
+            <Sidebar store={props.store} />
         </nav>
     );
 };
