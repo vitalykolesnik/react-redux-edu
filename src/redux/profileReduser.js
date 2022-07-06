@@ -19,7 +19,7 @@ const initialState = {
             likeCount: 0,
         },
     ],
-    postMessage: 'Enter new post...',
+    postMessage: '',
 };
 
 const profileReduser = (state = initialState, action) => {

@@ -33,7 +33,7 @@
 
 .posts {
     display: flex;
-    flex-flow: column nowrap;
+    flex-flow: row wrap;
     justify-content: flex-start;
     text-align: center;
 }

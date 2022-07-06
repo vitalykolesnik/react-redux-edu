@@ -1,0 +1,38 @@
+.user {
+    display: flex;
+    width: 300px;
+    margin: 0.5em 0.5em;
+    padding: 1em;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 1em;
+    color: black;
+    background-color: rgba(238, 211, 243, 0.836); 
+}
+
+.userMainInfo{
+    text-align: center;
+    color: white;
+    text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.8);
+}
+
+.user img{
+    height: 100px;
+}
+
+.user button {
+    width: 50px;
+    height: 2em;
+    color: white;
+    background-color: rgba(76, 0, 255, 0.603);
+    text-shadow: 2px 2px 5px black;
+    border: 1px solid (0,0,0,0.0);
+    border-radius: 2em;
+}
+
+.user button:hover {
+    cursor: pointer;
+    color: blue;
+    background-color: white;
+    border-radius: 2em;
+}

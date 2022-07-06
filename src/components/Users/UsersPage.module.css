@@ -1,0 +1,9 @@
+.container {
+    display: block;
+}
+
+.usersPage {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 10px;
+}

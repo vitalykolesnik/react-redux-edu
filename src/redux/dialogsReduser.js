@@ -47,7 +47,7 @@ const initialState = {
             message: 'Kasia: Kskskssss',
         },
     ],
-    newMessageText: 'Enter new message...',
+    newMessageText: '',
 };
 
 const dialogsReduser = (state = initialState, action) => {

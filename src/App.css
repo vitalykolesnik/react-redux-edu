@@ -1,4 +1,4 @@
-*{
+*{  
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -6,6 +6,7 @@
 
 .app-wrapper {
   margin: 0 auto;
+  height: 100vh;
   width: 1200px;
   display: grid; 
   grid-template-areas: "h h" "n c";
