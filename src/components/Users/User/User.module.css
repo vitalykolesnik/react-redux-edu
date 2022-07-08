@@ -1,10 +1,12 @@
 .user {
     display: flex;
-    width: 300px;
+    flex-flow: column;
+    width: 400px;
+    height: 400px;
     margin: 0.5em 0.5em;
     padding: 1em;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     border-radius: 1em;
     color: black;
     background-color: rgba(238, 211, 243, 0.836); 
@@ -17,12 +19,15 @@
 }
 
 .user img{
-    height: 100px;
+    height: 250px;
+    background-color: aliceblue;
+    border-radius: 1.2em;
 }
 
 .user button {
-    width: 50px;
+    width: 100px;
     height: 2em;
+    margin: 1em;
     color: white;
     background-color: rgba(76, 0, 255, 0.603);
     text-shadow: 2px 2px 5px black;

@@ -1,5 +1,4 @@
 .myPosts {
-    padding: 1em;
 }
 
 .myPosts h3 {
@@ -34,6 +33,5 @@
 .posts {
     display: flex;
     flex-flow: row wrap;
-    justify-content: flex-start;
-    text-align: center;
+    justify-content: stretch;
 }

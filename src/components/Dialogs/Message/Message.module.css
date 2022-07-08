@@ -1,4 +1,8 @@
 .message {
-    padding:0.4em;
+    height: 2em;
+    margin: 0.25em 0;
+    padding: 0.5em;
     color: black;
+    background-color: white;
+    border-radius: 1em;
 }

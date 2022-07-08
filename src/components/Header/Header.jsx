@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Header.module.css';
-import kittenHeader from '../../dist/images/kitten-header.png';
+import kittenHeader from 'assets/image/kitten-header.png';
 
 const Header = () => {
     return (

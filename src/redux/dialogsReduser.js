@@ -32,19 +32,15 @@ const initialState = {
     messages: [
         {
             id: 1,
-            message: 'Murka: Hi',
+            message: 'Hi',
         },
         {
             id: 2,
-            message: 'Barsik: Hello',
+            message: 'Hello',
         },
         {
             id: 3,
-            message: 'Murzik: Cool!!!',
-        },
-        {
-            id: 4,
-            message: 'Kasia: Kskskssss',
+            message: 'Cool!!!',
         },
     ],
     newMessageText: '',

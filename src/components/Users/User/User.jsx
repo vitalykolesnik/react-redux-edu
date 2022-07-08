@@ -14,15 +14,15 @@ const User = (props) => {
     return (
         <div className={u.user}>
             <div className={u.userMainInfo}>
-                <div>
-                    {props.subscribed ? (
-                        <button onClick={onUnsubscribe}>UNS</button>
-                    ) : (
-                        <button onClick={onSbscribe}>SUB</button>
-                    )}
-                </div>
                 <img src={icon} alt="ooops" />
                 <div>{props.name}</div>
+                <div>
+                    {props.subscribed ? (
+                        <button onClick={onUnsubscribe}>unsubscribe</button>
+                    ) : (
+                        <button onClick={onSbscribe}>subscribe</button>
+                    )}
+                </div>
             </div>
             <div>{props.description}</div>
         </div>
