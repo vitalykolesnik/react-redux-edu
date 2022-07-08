@@ -1,6 +1,7 @@
 import React from 'react';
 import u from './User.module.css';
 import icon from 'assets/image/user_Icon.png';
+import { NavLink } from 'react-router-dom';
 
 const User = (props) => {
     const onSbscribe = () => {
@@ -14,7 +15,9 @@ const User = (props) => {
     return (
         <div className={u.user}>
             <div className={u.userMainInfo}>
-                <img src={icon} alt="ooops" />
+                <NavLink to={'/profile/' + props.id}>
+                    <img src={icon} alt="ooops" />
+                </NavLink>
                 <div>{props.name}</div>
                 <div>
                     {props.subscribed ? (

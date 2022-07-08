@@ -2,12 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {
-    setUsersAC,
-    subscribeAC,
-    unsubscribeAC,
-    setCurrentPageAC,
-    setTotalUsersCountAC,
-    togglePreloaderAC,
+    setUsers,
+    subscribe,
+    unsubscribe,
+    setCurrentPage,
+    setTotalUsersCount,
+    togglePreloader,
 } from 'redux/usersReduser';
 import Users from './Users';
 
@@ -39,19 +39,7 @@ class UsersContainer extends React.Component {
     };
 
     render() {
-        return (
-            <Users
-                usersPage={this.props.usersPage}
-                pageSize={this.props.pageSize}
-                totalUsersCount={this.props.totalUsersCount}
-                currentPage={this.props.currentPage}
-                setCurrentPage={this.setCurrentPage}
-                setUsers={this.props.setUsers}
-                subscribe={this.props.subscribe}
-                unsubscribe={this.props.unsubscribe}
-                isLoading={this.props.isLoading}
-            />
-        );
+        return <Users {...this.props} setCurrentPage={this.setCurrentPage} />;
     }
 }
 
@@ -65,32 +53,13 @@ let mapStateToProps = (state) => {
     };
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        subscribe: (id) => {
-            dispatch(subscribeAC(id));
-        },
-        unsubscribe: (id) => {
-            dispatch(unsubscribeAC(id));
-        },
-        setUsers: (users) => {
-            dispatch(setUsersAC(users));
-        },
-        setCurrentPage: (page) => {
-            dispatch(setCurrentPageAC(page));
-        },
-        setTotalUsersCount: (totalCount) => {
-            dispatch(setTotalUsersCountAC(totalCount));
-        },
-        togglePreloader: (isLoading) => {
-            dispatch(togglePreloaderAC(isLoading));
-        },
-    };
-};
-
-const UsersPageContainer = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(UsersContainer);
+const UsersPageContainer = connect(mapStateToProps, {
+    subscribe,
+    unsubscribe,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    togglePreloader,
+})(UsersContainer);
 
 export default UsersPageContainer;

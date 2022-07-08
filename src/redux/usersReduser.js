@@ -62,29 +62,29 @@ const usersReduser = (state = initialState, action) => {
     }
 };
 
-export const subscribeAC = (id) => ({ type: SUBSCRIBE, id });
+export const subscribe = (id) => ({ type: SUBSCRIBE, id });
 
-export const unsubscribeAC = (id) => ({
+export const unsubscribe = (id) => ({
     type: UNSUSBSCRIBE,
     id,
 });
 
-export const setUsersAC = (users) => ({
+export const setUsers = (users) => ({
     type: SET_USERS,
     users,
 });
 
-export const setCurrentPageAC = (currentPage) => ({
+export const setCurrentPage = (currentPage) => ({
     type: SET_CURRENT_PAGE,
     currentPage,
 });
 
-export const setTotalUsersCountAC = (totalCount) => ({
+export const setTotalUsersCount = (totalCount) => ({
     type: SET_TOTAL_USERS_COUNT,
     totalCount,
 });
 
-export const togglePreloaderAC = (isLoading) => ({
+export const togglePreloader = (isLoading) => ({
     type: TOGGLE_PRELOADER,
     isLoading,
 });
