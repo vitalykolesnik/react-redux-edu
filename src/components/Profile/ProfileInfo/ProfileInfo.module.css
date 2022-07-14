@@ -1,7 +1,10 @@
 .profileInfo {
+    background-color: white;
+    border-radius: 1em;
 }
 
 .profileInfo img{
+    height: 400px;
     object-fit: cover; 
 }
 

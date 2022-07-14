@@ -4,7 +4,7 @@
     background-position: right; 
     background-repeat: no-repeat; 
     background-size: cover;
-    display: flex
+    display: flex;
 }
   
 .avatar {
@@ -14,4 +14,12 @@
 .avatar img {
     height: 100%;    
     box-sizing: border-box;
+}
+
+.loginBlock {
+    float: right;
+}
+
+.loginBlock :active{
+    color: white
 }

@@ -5,7 +5,7 @@ import Sidebar from './Sidebar/Sidebar';
 
 const setActive = ({ isActive }) => (isActive ? s.activeLink : '');
 
-const Navbar = (props) => {
+const Navbar = () => {
     return (
         <nav className={s.nav}>
             <div className={s.item}>
@@ -38,7 +38,7 @@ const Navbar = (props) => {
                     Find users
                 </NavLink>
             </div>
-            <Sidebar store={props.store} />
+            <Sidebar />
         </nav>
     );
 };

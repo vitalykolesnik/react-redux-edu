@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import {
     setUsers,
@@ -10,32 +9,27 @@ import {
     togglePreloader,
 } from 'redux/usersReduser';
 import Users from './Users';
+import { usersAPI } from 'api/api';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
         this.props.togglePreloader(true);
-        axios
-            .get(
-                `http://localhost:5000/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
-            )
-            .then((res) => {
+        usersAPI
+            .getUsers(this.props.currentPage, this.props.pageSize)
+            .then((data) => {
                 this.props.togglePreloader(false);
-                this.props.setUsers(res.data.users);
-                this.props.setTotalUsersCount(res.data.totalCount);
+                this.props.setUsers(data.users);
+                this.props.setTotalUsersCount(data.totalCount);
             });
     }
 
     setCurrentPage = (pageNumber) => {
         this.props.setCurrentPage(pageNumber);
         this.props.togglePreloader(true);
-        axios
-            .get(
-                `http://localhost:5000/users?page=${pageNumber}&count=${this.props.pageSize}`
-            )
-            .then((res) => {
-                this.props.togglePreloader(false);
-                this.props.setUsers(res.data.users);
-            });
+        usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
+            this.props.togglePreloader(false);
+            this.props.setUsers(data.users);
+        });
     };
 
     render() {

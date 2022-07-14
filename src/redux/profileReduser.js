@@ -1,7 +1,10 @@
 const ADD_POST = 'ADD-POST';
 const TYPE_TEXT = 'TYPE-TEXT';
+const SELECT_PROFILE = 'SELECT_PROFILE';
 
 const initialState = {
+    profileId: 2,
+    profile: {},
     posts: [
         {
             id: 1,
@@ -39,16 +42,24 @@ const profileReduser = (state = initialState, action) => {
         case TYPE_TEXT: {
             return { ...state, postMessage: action.postMessage };
         }
+        case SELECT_PROFILE: {
+            return { ...state, profile: action.profile };
+        }
         default:
             return state;
     }
 };
 
-export const addPostActionCreator = () => ({ type: ADD_POST });
+export const addPost = () => ({ type: ADD_POST });
 
-export const typeTextActionCreator = (text) => ({
+export const typeText = (text) => ({
     type: TYPE_TEXT,
     postMessage: text,
+});
+
+export const setUserProfile = (profile) => ({
+    type: SELECT_PROFILE,
+    profile,
 });
 
 export default profileReduser;

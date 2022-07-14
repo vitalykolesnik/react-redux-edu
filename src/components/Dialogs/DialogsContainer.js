@@ -1,9 +1,24 @@
+import React from 'react';
+import { connect } from 'react-redux';
 import Dialogs from './Dialogs';
 import {
-    sendMessageActionCreator,
-    typeMessageActionCreator,
+    sendMessage,
+    setDialogs,
+    typeMessage,
 } from '../../redux/dialogsReduser';
-import { connect } from 'react-redux';
+import { usersAPI } from 'api/api';
+
+class DialogsContainer extends React.Component {
+    componentDidMount() {
+        usersAPI.getUsers(1, 10).then((data) => {
+            this.props.setDialogs(data.users);
+        });
+    }
+
+    render() {
+        return <Dialogs {...this.props} />;
+    }
+}
 
 let mapStateToProps = (state) => {
     return {
@@ -12,16 +27,8 @@ let mapStateToProps = (state) => {
     };
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        sendMessage: () => {
-            dispatch(sendMessageActionCreator());
-        },
-        typeMessage: (text) => {
-            dispatch(typeMessageActionCreator(text));
-        },
-    };
-};
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
-
-export default DialogsContainer;
+export default connect(mapStateToProps, {
+    sendMessage,
+    typeMessage,
+    setDialogs,
+})(DialogsContainer);

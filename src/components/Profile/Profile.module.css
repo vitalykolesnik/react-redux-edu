@@ -2,3 +2,10 @@
     font-size: 1.2em;
     text-align: center;
 }
+
+.profile h3 {
+    text-align: center;
+    margin: 0.25rem 0;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}

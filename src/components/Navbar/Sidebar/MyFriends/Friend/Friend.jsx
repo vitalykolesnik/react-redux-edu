@@ -3,12 +3,11 @@ import s from './Friend.module.css';
 import { NavLink } from 'react-router-dom';
 
 const Friend = (props) => {
-    let path = '/profile/' + props.id;
     return (
         <div className={s.friend}>
-            <NavLink to={path}>
+            <NavLink to={'/profile/' + props.id}>
                 <img src={props.image} alt="Ooops" />
-                {props.name}
+                <p>{props.name}</p>
             </NavLink>
         </div>
     );

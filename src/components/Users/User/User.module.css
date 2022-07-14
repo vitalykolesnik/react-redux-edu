@@ -20,6 +20,8 @@
 
 .user img{
     height: 250px;
+    width: 300px;
+    object-fit: cover;
     background-color: aliceblue;
     border-radius: 1.2em;
 }

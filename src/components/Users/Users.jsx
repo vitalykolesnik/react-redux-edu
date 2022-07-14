@@ -25,7 +25,7 @@ const Users = (props) => {
                         <h3>Users</h3>
                     </div>
                     <div className={s.pagination}>
-                        {pages.map((p) => {
+                        {pages.map((p, i) => {
                             return (
                                 <span
                                     className={
@@ -34,7 +34,7 @@ const Users = (props) => {
                                             : ''
                                     }
                                     onClick={() => onPageChanged(p)}
-                                    key={p}
+                                    key={i}
                                 >
                                     {' '}
                                     {p}{' '}
@@ -45,11 +45,8 @@ const Users = (props) => {
                     <div className={s.usersPage}>
                         {props.usersPage.users.map((u) => (
                             <User
-                                id={u.id}
+                                {...u}
                                 key={u.id}
-                                name={u.name}
-                                description={u.description}
-                                subscribed={u.subscribed}
                                 subscribe={props.subscribe}
                                 unsubscribe={props.unsubscribe}
                             />
