@@ -1,47 +1,57 @@
 import React from 'react';
+import { withUriParameters } from 'components/hoc/withUriParameters';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { setUserProfile } from 'redux/profileReduser';
+import { compose } from 'redux';
+import { getUserProfile } from './../../redux/profileReduser';
 import Profile from './Profile';
-import { profileAPI } from 'api/api';
+import { withAuthRedirect } from 'components/hoc/withAuthRedirect';
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        let id = this.props.id;
-        if (!id) id = this.props.profileId;
-        profileAPI.getProfile(id).then((data) => {
-            this.props.setUserProfile(data.profile);
-        });
+        this.props.getUserProfile(this.props.profileID || this.props.userID);
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.id !== this.props.id) {
-            profileAPI
-                .getProfile(this.props.id)
-                .then((data) => this.props.setUserProfile(data.profile));
+        if (prevProps.profileID !== this.props.profileID) {
+            this.props.getUserProfile(
+                this.props.profileID || this.props.userID
+            );
         }
     }
 
     render() {
-        return <Profile {...this.props.profile} />;
+        return (
+            <Profile
+                {...this.props}
+                profileID={this.props.profileID || this.props.userID}
+            />
+        );
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        profileId: state.profilePage.profileId,
+        userID: state.auth.userId,
         profile: state.profilePage.profile,
+        isLoading: state.profilePage.isLoading,
     };
 };
 
-const WithUriProfilePageContainer = (props) => {
-    let params = useParams();
-    let paramId = parseInt(params.id) || props.profileId;
-    return <ProfileContainer {...props} id={paramId} />;
-};
+// const ProfilePageContainer = connect(mapStateToProps, {
+//     setUserId,
+//     getUserProfile,
+// })(ProfileContainer);
 
-const ProfilePageContainer = connect(mapStateToProps, {
-    setUserProfile,
-})(WithUriProfilePageContainer);
+// const AuthRedirectComponent = withAuthRedirect(ProfilePageContainer); // Executed in HOC
 
-export default ProfilePageContainer;
+// const WithUriProfilePageContainer = withUriParameters(AuthRedirectComponent); // Executed in HOC
+
+// export default WithUriProfilePageContainer;
+
+export default compose(
+    connect(mapStateToProps, {
+        getUserProfile,
+    }),
+    withUriParameters,
+    withAuthRedirect
+)(ProfileContainer);

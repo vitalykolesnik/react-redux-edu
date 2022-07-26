@@ -1,3 +1,5 @@
+import { usersAPI } from 'api/api';
+
 const SET_FRIENDS = 'SET_FRIENDS';
 
 const initialState = {
@@ -21,5 +23,13 @@ export const setFriends = (friends) => ({
     type: SET_FRIENDS,
     friends,
 });
+
+export const getFriends = () => {
+    return (dispatch) => {
+        usersAPI.getUsers(1, 5).then((data) => {
+            dispatch(setFriends(data.users));
+        });
+    };
+};
 
 export default navReduser;

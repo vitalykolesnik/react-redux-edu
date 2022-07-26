@@ -1,35 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    setUsers,
     subscribe,
     unsubscribe,
     setCurrentPage,
-    setTotalUsersCount,
-    togglePreloader,
+    getUsers,
 } from 'redux/usersReduser';
 import Users from './Users';
-import { usersAPI } from 'api/api';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.togglePreloader(true);
-        usersAPI
-            .getUsers(this.props.currentPage, this.props.pageSize)
-            .then((data) => {
-                this.props.togglePreloader(false);
-                this.props.setUsers(data.users);
-                this.props.setTotalUsersCount(data.totalCount);
-            });
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     setCurrentPage = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.togglePreloader(true);
-        usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
-            this.props.togglePreloader(false);
-            this.props.setUsers(data.users);
-        });
+        this.props.getUsers(pageNumber, this.props.pageSize);
     };
 
     render() {
@@ -39,9 +24,8 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        usersPage: state.usersPage,
+        users: state.usersPage.users,
         pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isLoading: state.usersPage.isLoading,
     };
@@ -50,10 +34,8 @@ let mapStateToProps = (state) => {
 const UsersPageContainer = connect(mapStateToProps, {
     subscribe,
     unsubscribe,
-    setUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    togglePreloader,
+    getUsers,
 })(UsersContainer);
 
 export default UsersPageContainer;

@@ -1,3 +1,5 @@
+import { usersAPI } from 'api/api';
+
 const SUBSCRIBE = 'SUBSCRIBE';
 const UNSUSBSCRIBE = 'UNSUSBSCRIBE';
 const SET_USERS = 'SET_USERS';
@@ -7,7 +9,7 @@ const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER';
 
 const initialState = {
     users: [],
-    pageSize: 4,
+    pageSize: 8,
     totalUsersCount: 0,
     currentPage: 1,
     isLoading: false,
@@ -88,5 +90,16 @@ export const togglePreloader = (isLoading) => ({
     type: TOGGLE_PRELOADER,
     isLoading,
 });
+
+export const getUsers = (currentPage, pageSize) => {
+    return (dispatch) => {
+        dispatch(togglePreloader(true));
+        usersAPI.getUsers(currentPage, pageSize).then((data) => {
+            dispatch(togglePreloader(false));
+            dispatch(setUsers(data.users));
+            dispatch(setTotalUsersCount(data.totalCount));
+        });
+    };
+}; // thunkCreator -> thunk -> callback
 
 export default usersReduser;

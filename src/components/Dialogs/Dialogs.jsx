@@ -5,11 +5,11 @@ import Message from './Message/Message';
 
 const Dialogs = (props) => {
     const dialogsElements = props.dialogsPage.dialogs.map((d) => (
-        <DialogItem key={d.id} name={d.name} image={d.image} id={d.id} />
+        <DialogItem {...d} key={d.user_id} />
     ));
 
     const messagesElements = props.dialogsPage.messages.map((m) => (
-        <Message key={m.id} message={m.message} id={m.id} />
+        <Message {...m} key={m.id} />
     ));
 
     const newMessageText = props.dialogsPage.newMessageText;
@@ -19,8 +19,7 @@ const Dialogs = (props) => {
     };
 
     const onTypeMessage = (e) => {
-        let text = e.target.value;
-        props.typeMessage(text);
+        props.typeMessage(e.target.value);
     };
 
     return (

@@ -16,8 +16,8 @@
     box-sizing: border-box;
 }
 
-.loginBlock {
-    float: right;
+.header .loginBlock {
+    height: 100%
 }
 
 .loginBlock :active{

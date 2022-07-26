@@ -1,14 +1,11 @@
 import React from 'react';
 import MyFriends from './MyFriends';
 import { connect } from 'react-redux';
-import { setFriends } from 'redux/navReduser';
-import { usersAPI } from 'api/api';
+import { getFriends } from 'redux/navReduser';
 
 class MyFriendsContainer extends React.Component {
     componentDidMount() {
-        usersAPI.getUsers(1, 10).then((data) => {
-            this.props.setFriends(data.users);
-        });
+        this.props.getFriends();
     }
 
     render() {
@@ -22,4 +19,4 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { setFriends })(MyFriendsContainer);
+export default connect(mapStateToProps, { getFriends })(MyFriendsContainer);

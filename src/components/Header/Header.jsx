@@ -10,10 +10,20 @@ const Header = (props) => {
                 <img src={kittenHeader} alt="Ooops" />
             </div>
             <div className={s.loginBlock}>
-                {props.login}
-                <NavLink to="/logout">Logout</NavLink>
-                <NavLink to="/login">Login</NavLink>
-                <NavLink to="/signup">SignUp</NavLink>
+                <h4>Hello, {props.userLogin}!</h4>
+                {props.isAuth ? (
+                    <div>
+                        <div>
+                            <NavLink to="/logout">Logout</NavLink>
+                        </div>
+                    </div>
+                ) : (
+                    <div>
+                        <div>
+                            <NavLink to="/login">Login or signup</NavLink>
+                        </div>
+                    </div>
+                )}
             </div>
         </header>
     );

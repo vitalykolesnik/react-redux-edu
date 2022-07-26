@@ -10,7 +10,9 @@ import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 import DialogsContainer from 'components/Dialogs/DialogsContainer';
 import UsersPageContainer from 'components/Users/UsersPageContainer';
-import ProfileWithUriPageContainer from 'components/Profile/ProfileContainer';
+import ProfilePageContainer from 'components/Profile/ProfileContainer';
+import LoginContainer from 'components/Login/LoginContainer';
+import Logout from 'components/Logout/Logout';
 
 const App = () => {
     return (
@@ -21,13 +23,16 @@ const App = () => {
                     <Navbar />
                     <div className="app-wrapper-content">
                         <Routes>
+                            <Route path="/" element={<LoginContainer />} />
+                            <Route path="/login" element={<LoginContainer />} />
+                            <Route path="/logout" element={<Logout />} />
                             <Route
-                                path="profile"
-                                element={<ProfileWithUriPageContainer />}
+                                path="/profile"
+                                element={<ProfilePageContainer />}
                             />
                             <Route
-                                path="profile/:id"
-                                element={<ProfileWithUriPageContainer />}
+                                path="/profile/:id"
+                                element={<ProfilePageContainer />}
                             />
                             <Route
                                 path="/dialogs"
@@ -36,7 +41,6 @@ const App = () => {
                             <Route path="/news" element={<News />} />
                             <Route path="/music" element={<Music />} />
                             <Route path="/settings" element={<Settings />} />
-
                             <Route
                                 path="/users"
                                 element={<UsersPageContainer />}

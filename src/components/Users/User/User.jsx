@@ -1,24 +1,23 @@
 import React from 'react';
 import u from './User.module.css';
-import icon from 'assets/image/user_Icon.png';
 import { NavLink } from 'react-router-dom';
 
 const User = (props) => {
     const onSbscribe = () => {
-        props.subscribe(props.id);
+        props.subscribe(props.user_id);
     };
 
     const onUnsubscribe = () => {
-        props.unsubscribe(props.id);
+        props.unsubscribe(props.user_id);
     };
 
     return (
         <div className={u.user}>
             <div className={u.userMainInfo}>
-                <NavLink to={'/profile/' + props.id}>
-                    <img src={props.image} alt={icon} />
+                <NavLink to={'/profile/' + props.user_id}>
+                    <img src={props.image} alt={'oops'} />
                 </NavLink>
-                <div>{props.name}</div>
+                <div>{props.login}</div>
                 <div>
                     {props.subscribed ? (
                         <button onClick={onUnsubscribe}>unsubscribe</button>

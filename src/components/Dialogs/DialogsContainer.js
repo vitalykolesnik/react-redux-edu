@@ -2,17 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Dialogs from './Dialogs';
 import {
+    getDialogs,
     sendMessage,
-    setDialogs,
     typeMessage,
 } from '../../redux/dialogsReduser';
-import { usersAPI } from 'api/api';
+import { withAuthRedirect } from 'components/hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 class DialogsContainer extends React.Component {
     componentDidMount() {
-        usersAPI.getUsers(1, 10).then((data) => {
-            this.props.setDialogs(data.users);
-        });
+        this.props.getDialogs();
     }
 
     render() {
@@ -27,8 +26,11 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, {
-    sendMessage,
-    typeMessage,
-    setDialogs,
-})(DialogsContainer);
+export default compose(
+    connect(mapStateToProps, {
+        sendMessage,
+        typeMessage,
+        getDialogs,
+    }),
+    withAuthRedirect
+)(DialogsContainer);

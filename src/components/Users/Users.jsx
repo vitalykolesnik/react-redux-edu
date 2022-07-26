@@ -16,14 +16,14 @@ const Users = (props) => {
     };
 
     return (
-        <>
+        <div className={s.container}>
+            <div>
+                <h3>Users</h3>
+            </div>
             {props.isLoading ? (
                 <Preloader />
             ) : (
-                <div className={s.container}>
-                    <div>
-                        <h3>Users</h3>
-                    </div>
+                <div>
                     <div className={s.pagination}>
                         {pages.map((p, i) => {
                             return (
@@ -43,10 +43,10 @@ const Users = (props) => {
                         })}
                     </div>
                     <div className={s.usersPage}>
-                        {props.usersPage.users.map((u) => (
+                        {props.users.map((u) => (
                             <User
                                 {...u}
-                                key={u.id}
+                                key={u.user_id}
                                 subscribe={props.subscribe}
                                 unsubscribe={props.unsubscribe}
                             />
@@ -54,7 +54,7 @@ const Users = (props) => {
                     </div>
                 </div>
             )}
-        </>
+        </div>
     );
 };
 

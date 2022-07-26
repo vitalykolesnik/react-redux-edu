@@ -1,17 +1,47 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    withCredentials: false,
+    withCredentials: true,
     baseURL: 'http://localhost:5000/',
-    headers: {
-        'api-key': '123',
-    },
 });
 
-export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 4) {
+export const authAPI = {
+    signup(login, password) {
         return instance
-            .get(`users?page=${currentPage}&count=${pageSize}`)
+            .post(`/signup`, {
+                login,
+                password,
+            })
+            .then((res) => {
+                return res.data;
+            });
+    },
+    login(login, password) {
+        return instance
+            .post(`/login`, {
+                login,
+                password,
+            })
+            .then((res) => {
+                return res.data;
+            });
+    },
+    logout() {
+        return instance.get(`/logout`).then((res) => {
+            return res.data;
+        });
+    },
+    me() {
+        return instance.get(`/me`).then((res) => {
+            return res.data;
+        });
+    },
+};
+
+export const usersAPI = {
+    getUsers(currentPage = 1, pageSize = 10) {
+        return instance
+            .get(`/users?page=${currentPage}&count=${pageSize}`)
             .then((res) => {
                 return res.data;
             });
@@ -20,7 +50,26 @@ export const usersAPI = {
 
 export const profileAPI = {
     getProfile(id) {
-        return instance.get(`users/${id}`).then((res) => {
+        return instance.get(`/users/${id}`).then((res) => {
+            return res.data;
+        });
+    },
+    getPosts(id) {
+        return instance.get(`/posts/${id}/all`).then((res) => {
+            return res.data;
+        });
+    },
+    addPost(text) {
+        return instance
+            .post(`/posts`, {
+                text,
+            })
+            .then((res) => {
+                return res.data;
+            });
+    },
+    deletePost(postId) {
+        return instance.delete(`/posts/${postId}`).then((res) => {
             return res.data;
         });
     },

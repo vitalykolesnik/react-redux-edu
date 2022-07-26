@@ -4,11 +4,17 @@ import Post from './Post/Post';
 
 const MyPosts = (props) => {
     const postElements = props.posts.map((p) => (
-        <Post key={p.id} text={p.text} likeCount={p.likeCount} />
+        <Post
+            {...p}
+            key={p.id}
+            onDeleteUserPost={props.deleteUserPost}
+            profileID={props.profileID}
+            userID={props.userID}
+        />
     ));
 
     const onAddPost = () => {
-        props.addPost();
+        props.addUserPost();
     };
 
     const onEnterPost = (e) => {
@@ -18,18 +24,22 @@ const MyPosts = (props) => {
     return (
         <div className={s.myPosts}>
             <h3>My posts</h3>
-            <div>
+            {props.profileID === props.userID ? (
                 <div>
-                    <textarea
-                        onChange={onEnterPost}
-                        value={props.postMessage}
-                        placeholder="Enter your post..."
-                    />
+                    <div>
+                        <textarea
+                            onChange={onEnterPost}
+                            value={props.postMessage}
+                            placeholder="Enter your post..."
+                        />
+                    </div>
+                    <div>
+                        <button onClick={onAddPost}>Add post</button>
+                    </div>
                 </div>
-                <div>
-                    <button onClick={onAddPost}>Add post</button>
-                </div>
-            </div>
+            ) : (
+                ''
+            )}
             <div className={s.posts}>{postElements}</div>
         </div>
     );
