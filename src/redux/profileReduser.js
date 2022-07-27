@@ -5,26 +5,32 @@ const DELETE_POST = 'DELETE_POST';
 const TYPE_TEXT = 'TYPE-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_POSTS = 'SET_USER_POSTS';
+const SET_USER_STATUS = 'SET_USER_STATUS';
 const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER';
+const TOGGLE_ADD_STATUS = 'TOGGLE_ADD_STATUS';
+const TOGGLE_DELETE_STATUS = 'TOGGLE_DELETE_STATUS';
 
 const initialState = {
     profile: null,
     posts: [],
-    postMessage: '',
     isLoading: false,
+    isAdding: false,
+    isDeleting: [],
+    postMessage: '',
+    status: '',
 };
 
 const profileReduser = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: {
-            // if (state.postMessage) {
-            return {
-                ...state,
-                posts: [...state.posts, action.post],
-                postMessage: '',
-            };
-            // }
-            // return state;
+            if (state.postMessage) {
+                return {
+                    ...state,
+                    posts: [...state.posts, action.post],
+                    postMessage: '',
+                };
+            }
+            return state;
         }
         case DELETE_POST: {
             return {
@@ -41,10 +47,27 @@ const profileReduser = (state = initialState, action) => {
         case SET_USER_POSTS: {
             return { ...state, posts: action.posts };
         }
+        case SET_USER_STATUS: {
+            return { ...state, status: action.status };
+        }
         case TOGGLE_PRELOADER: {
             return {
                 ...state,
                 isLoading: action.isLoading,
+            };
+        }
+        case TOGGLE_ADD_STATUS: {
+            return {
+                ...state,
+                isAdding: action.isAdding,
+            };
+        }
+        case TOGGLE_DELETE_STATUS: {
+            return {
+                ...state,
+                isDeleting: action.isDeleting
+                    ? [...state.isDeleting, action.id]
+                    : [state.isDeleting.filter((id) => id !== action.id)],
             };
         }
         default:
@@ -77,9 +100,25 @@ export const setUserPosts = (posts) => ({
     posts,
 });
 
+export const setUserStatus = (status) => ({
+    type: SET_USER_STATUS,
+    status,
+});
+
 export const togglePreloader = (isLoading) => ({
     type: TOGGLE_PRELOADER,
     isLoading,
+});
+
+export const toggleIsAdding = (isAdding) => ({
+    type: TOGGLE_ADD_STATUS,
+    isAdding,
+});
+
+export const toggleIsDeleting = (isDeleting, id) => ({
+    type: TOGGLE_DELETE_STATUS,
+    isDeleting,
+    id,
 });
 
 export const getUserPosts = (profileId) => {
@@ -104,22 +143,46 @@ export const getUserProfile = (userId) => {
     };
 };
 
+export const getUserStatus = (userId) => {
+    return (dispatch) => {
+        profileAPI.getStatus(userId).then((data) => {
+            if (!data.errorCode) {
+                dispatch(setUserStatus(data.status));
+            }
+        });
+    };
+};
+
+export const updateUserStatus = (status) => {
+    return (dispatch) => {
+        profileAPI.updateStatus(status).then((data) => {
+            if (!data.errorCode) {
+                dispatch(setUserStatus(data.status));
+            }
+        });
+    };
+};
+
 export const addUserPost = (post) => {
     return (dispatch) => {
+        dispatch(toggleIsAdding(true));
         profileAPI.addPost(post).then((data) => {
             if (!data.errorCode) {
                 dispatch(addPosts(data.dataValues));
             }
+            dispatch(toggleIsAdding(false));
         });
     };
 };
 
 export const deleteUserPost = (id) => {
     return (dispatch) => {
+        dispatch(toggleIsDeleting(true, id));
         profileAPI.deletePost(id).then((data) => {
             if (!data.errorCode) {
                 dispatch(deletePost(id));
             }
+            dispatch(toggleIsDeleting(false, id));
         });
     };
 };

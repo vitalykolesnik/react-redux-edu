@@ -59,6 +59,17 @@ export const profileAPI = {
             return res.data;
         });
     },
+    getStatus(id) {
+        return instance.get(`/users/status/${id}`).then((res) => {
+            return res.data;
+        });
+    },
+    updateStatus(status) {
+        return instance.put(`/users/status`, { status }).then((res) => {
+            return res.data;
+        });
+    },
+
     addPost(text) {
         return instance
             .post(`/posts`, {

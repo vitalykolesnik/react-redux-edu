@@ -26,7 +26,8 @@ const User = (props) => {
                     )}
                 </div>
             </div>
-            <div>{props.description}</div>
+            <div>Info: {props.description}</div>
+            <div>Status: {props.status}</div>
         </div>
     );
 };

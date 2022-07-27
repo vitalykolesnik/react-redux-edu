@@ -23,6 +23,12 @@
     border-radius: 2em;
 }
 
+.myPosts button:disabled{
+    color: darkgray;
+    background-color: grey;
+    border-radius: 2em;
+}
+
 .posts {
     display: flex;
     flex-flow: row wrap;

@@ -7,6 +7,7 @@ const MyPosts = (props) => {
         <Post
             {...p}
             key={p.id}
+            isDeleting={props.isDeleting}
             onDeleteUserPost={props.deleteUserPost}
             profileID={props.profileID}
             userID={props.userID}
@@ -34,7 +35,9 @@ const MyPosts = (props) => {
                         />
                     </div>
                     <div>
-                        <button onClick={onAddPost}>Add post</button>
+                        <button onClick={onAddPost} disabled={props.isAdding}>
+                            Add post
+                        </button>
                     </div>
                 </div>
             ) : (

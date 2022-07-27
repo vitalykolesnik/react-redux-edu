@@ -1,0 +1,24 @@
+.profileStatus {
+    text-align: center;
+    height: 1.5em;
+    margin-top: 1em;
+    /* background-color: blue; */
+}
+
+.profileStatus input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 1em;
+    border: 0 none;
+}
+
+.profileStatus .statusText {
+    height: 1.5em;
+    display: block;
+    text-align: center;
+    font-size: 1em;
+    border: 2px solid grey;
+    background-color: blueviolet;
+    color: white
+}

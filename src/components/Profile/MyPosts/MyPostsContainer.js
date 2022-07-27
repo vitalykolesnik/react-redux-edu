@@ -42,6 +42,8 @@ class MyPostsContainer extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userID: state.auth.userId,
+        isAdding: state.profilePage.isAdding,
+        isDeleting: state.profilePage.isDeleting,
         posts: state.profilePage.posts,
         postMessage: state.profilePage.postMessage,
     };

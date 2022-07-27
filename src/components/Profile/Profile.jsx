@@ -2,6 +2,8 @@ import React from 'react';
 import s from './Profile.module.css';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
+import ProfileStatus from './ProfileInfo/ProfileStatus';
+
 import Preloader from 'components/other/Preloader/Preloader';
 
 const Profile = (props) => {
@@ -14,6 +16,10 @@ const Profile = (props) => {
                 ) : (
                     <div>
                         <ProfileInfo {...props.profile} />
+                        <ProfileStatus
+                            status={props.status}
+                            updateStatus={props.updateStatus}
+                        />
                         <MyPostsContainer profileID={props.profileID} />
                     </div>
                 )}
