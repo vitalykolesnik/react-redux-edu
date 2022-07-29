@@ -11,18 +11,24 @@
 
 .item img {
     object-fit: cover;
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
 }
 
+.item .itemInfo {
+    padding: 0.5em 0; 
+    width: 100%;
+}
+
 .itemMessage {
-    margin: 1em 0;
-    padding: 1em 0; 
-    border-radius: 1em;
+    padding:  0.5em; 
+    padding-bottom: 0;
+    width: 100%;
     text-align: center;
 }
 
 .itemLikesCount {
-    align-self: flex-start;
+    padding: 0.5em;
+    align-self: flex-end;
 }

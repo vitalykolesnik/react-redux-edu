@@ -59,6 +59,11 @@ export const profileAPI = {
             return res.data;
         });
     },
+    getAllPosts() {
+        return instance.get(`/posts/`).then((res) => {
+            return res.data;
+        });
+    },
     getStatus(id) {
         return instance.get(`/users/status/${id}`).then((res) => {
             return res.data;

@@ -5,6 +5,7 @@ const DELETE_POST = 'DELETE_POST';
 const TYPE_TEXT = 'TYPE-TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_USER_POSTS = 'SET_USER_POSTS';
+const SET_ALL_POSTS = 'SET_ALL_POSTS';
 const SET_USER_STATUS = 'SET_USER_STATUS';
 const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER';
 const TOGGLE_ADD_STATUS = 'TOGGLE_ADD_STATUS';
@@ -14,6 +15,7 @@ const initialState = {
     profileId: null,
     profile: null,
     posts: [],
+    allPosts: [],
     isLoading: false,
     isAdding: false,
     isDeleting: [],
@@ -47,6 +49,9 @@ const profileReduser = (state = initialState, action) => {
         }
         case SET_USER_POSTS: {
             return { ...state, posts: action.posts };
+        }
+        case SET_ALL_POSTS: {
+            return { ...state, allPosts: action.allPosts };
         }
         case SET_USER_STATUS: {
             return { ...state, status: action.status };
@@ -99,6 +104,11 @@ export const setUserProfile = (profile) => ({
 export const setUserPosts = (posts) => ({
     type: SET_USER_POSTS,
     posts,
+});
+
+export const setAllPosts = (allPosts) => ({
+    type: SET_ALL_POSTS,
+    allPosts,
 });
 
 export const setUserStatus = (status) => ({
@@ -163,6 +173,17 @@ export const getUserPosts = (profileId) => {
             if (!data.errorCode) {
                 const { posts } = data;
                 dispatch(setUserPosts(posts));
+            }
+        });
+    };
+};
+
+export const getAllPosts = () => {
+    return (dispatch) => {
+        profileAPI.getAllPosts().then((data) => {
+            if (!data.errorCode) {
+                const { posts } = data;
+                dispatch(setAllPosts(posts));
             }
         });
     };

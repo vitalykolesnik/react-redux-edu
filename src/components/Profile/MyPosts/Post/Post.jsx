@@ -9,13 +9,12 @@ const Post = (props) => {
     return (
         <div className={s.item}>
             <div>
-                {/* <img src={props.image} alt="Ooops" /> */}
-                <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpyQ3Ez7fGNDmuULcJxaGc3CxZ5ohwAoFeGQ&usqp=CAU"
-                    alt="Ooops"
-                />
-                <div className={s.itemMessage}>
-                    {props.id}: {props.text}
+                <div className={s.itemInfo}>
+                    <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpyQ3Ez7fGNDmuULcJxaGc3CxZ5ohwAoFeGQ&usqp=CAU"
+                        alt="Ooops"
+                    />
+                    <div className={s.itemMessage}>{props.text}</div>
                 </div>
             </div>
             <div className={s.itemLikesCount}>
