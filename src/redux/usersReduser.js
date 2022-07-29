@@ -96,8 +96,9 @@ export const getUsers = (currentPage, pageSize) => {
         dispatch(togglePreloader(true));
         usersAPI.getUsers(currentPage, pageSize).then((data) => {
             dispatch(togglePreloader(false));
-            dispatch(setUsers(data.users));
-            dispatch(setTotalUsersCount(data.totalCount));
+            const { users, totalCount } = data;
+            dispatch(setUsers(users));
+            dispatch(setTotalUsersCount(totalCount));
         });
     };
 }; // thunkCreator -> thunk -> callback

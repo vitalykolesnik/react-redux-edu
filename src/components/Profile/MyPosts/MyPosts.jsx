@@ -9,8 +9,8 @@ const MyPosts = (props) => {
             key={p.id}
             isDeleting={props.isDeleting}
             onDeleteUserPost={props.deleteUserPost}
-            profileID={props.profileID}
-            userID={props.userID}
+            profileId={props.profileId}
+            userId={props.userId}
         />
     ));
 
@@ -25,7 +25,7 @@ const MyPosts = (props) => {
     return (
         <div className={s.myPosts}>
             <h3>My posts</h3>
-            {props.profileID === props.userID ? (
+            {props.profileId === props.userId ? (
                 <div>
                     <div>
                         <textarea

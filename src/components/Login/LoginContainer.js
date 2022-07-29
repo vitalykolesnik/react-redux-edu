@@ -1,21 +1,11 @@
-import { withAutoRedirectToMain } from 'components/hoc/withAutoRedirect';
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import {
-    getMe,
-    login,
-    signup,
-    typeLogin,
-    typePassword,
-} from 'redux/authReduser';
+import { login, signup, typeLogin, typePassword } from 'redux/authReduser';
 import Login from './Login';
+import { withAutoRedirectToMain } from 'components/hoc/withAutoRedirect';
 
 class LoginContainer extends React.Component {
-    componentDidMount() {
-        this.props.getMe();
-    }
-
     executeLogin = () => {
         this.props.login(this.props.loginInput, this.props.passwordInput);
     };
@@ -46,7 +36,6 @@ const mapStateToProps = (state) => {
 
 export default compose(
     connect(mapStateToProps, {
-        getMe,
         login,
         signup,
         typeLogin,

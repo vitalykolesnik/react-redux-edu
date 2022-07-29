@@ -11,12 +11,12 @@ import MyPosts from './MyPosts';
 
 class MyPostsContainer extends React.Component {
     componentDidMount() {
-        this.props.getUserPosts(this.props.profileID);
+        this.props.getUserPosts(this.props.profileId);
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.profileID !== this.props.profileID) {
-            this.props.getUserPosts(this.props.profileID);
+        if (prevProps.profileId !== this.props.profileId) {
+            this.props.getUserPosts(this.props.profileId);
         }
     }
 
@@ -41,7 +41,7 @@ class MyPostsContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userID: state.auth.userId,
+        userId: state.auth.userId,
         isAdding: state.profilePage.isAdding,
         isDeleting: state.profilePage.isDeleting,
         posts: state.profilePage.posts,

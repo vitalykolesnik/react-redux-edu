@@ -6,9 +6,10 @@ export const withAuthRedirect = (Component) => {
     const RedirectComponent = (props) => {
         const isAuth = useSelector((state) => state.auth.isAuth);
 
-        return (
-            <>{!isAuth ? <Navigate to="/login" /> : <Component {...props} />}</>
-        );
+        if (!props.paramId && !isAuth) return <Navigate to="/login" />;
+
+        // console.log(`withAuthRedirect paramId: ${props.paramId}`);
+        return <Component {...props} />;
     };
 
     return RedirectComponent;

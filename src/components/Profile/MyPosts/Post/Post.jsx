@@ -21,7 +21,7 @@ const Post = (props) => {
             <div className={s.itemLikesCount}>
                 <span>💗</span> {props.likeCount || 0}
             </div>
-            {props.profileID === props.userID ? (
+            {props.profileId === props.userId ? (
                 <button
                     onClick={onDeletePost}
                     disabled={props.isDeleting.some((id) => id === props.id)}

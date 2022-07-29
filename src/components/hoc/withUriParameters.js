@@ -5,7 +5,8 @@ export const withUriParameters = (Component) => {
     const RedirectComponent = (props) => {
         let { id } = useParams();
 
-        return <Component {...props} profileID={id} />;
+        // console.log(`withUriParam id: ${id}`);
+        return <Component {...props} paramId={id} />;
     };
 
     return RedirectComponent;

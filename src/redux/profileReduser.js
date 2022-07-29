@@ -11,6 +11,7 @@ const TOGGLE_ADD_STATUS = 'TOGGLE_ADD_STATUS';
 const TOGGLE_DELETE_STATUS = 'TOGGLE_DELETE_STATUS';
 
 const initialState = {
+    profileId: null,
     profile: null,
     posts: [],
     isLoading: false,
@@ -121,22 +122,13 @@ export const toggleIsDeleting = (isDeleting, id) => ({
     id,
 });
 
-export const getUserPosts = (profileId) => {
-    return (dispatch) => {
-        profileAPI.getPosts(profileId).then((data) => {
-            if (!data.errorCode) {
-                dispatch(setUserPosts(data.posts));
-            }
-        });
-    };
-};
-
 export const getUserProfile = (userId) => {
     return (dispatch) => {
         dispatch(togglePreloader(true));
         profileAPI.getProfile(userId).then((data) => {
             if (!data.errorCode) {
-                dispatch(setUserProfile(data.user));
+                const { user } = data;
+                dispatch(setUserProfile(user));
                 dispatch(togglePreloader(false));
             }
         });
@@ -147,7 +139,8 @@ export const getUserStatus = (userId) => {
     return (dispatch) => {
         profileAPI.getStatus(userId).then((data) => {
             if (!data.errorCode) {
-                dispatch(setUserStatus(data.status));
+                const { status } = data;
+                dispatch(setUserStatus(status));
             }
         });
     };
@@ -157,7 +150,19 @@ export const updateUserStatus = (status) => {
     return (dispatch) => {
         profileAPI.updateStatus(status).then((data) => {
             if (!data.errorCode) {
-                dispatch(setUserStatus(data.status));
+                const { status } = data;
+                dispatch(setUserStatus(status));
+            }
+        });
+    };
+};
+
+export const getUserPosts = (profileId) => {
+    return (dispatch) => {
+        profileAPI.getPosts(profileId).then((data) => {
+            if (!data.errorCode) {
+                const { posts } = data;
+                dispatch(setUserPosts(posts));
             }
         });
     };
@@ -168,7 +173,8 @@ export const addUserPost = (post) => {
         dispatch(toggleIsAdding(true));
         profileAPI.addPost(post).then((data) => {
             if (!data.errorCode) {
-                dispatch(addPosts(data.dataValues));
+                const { dataValues: posts } = data;
+                dispatch(addPosts(posts));
             }
             dispatch(toggleIsAdding(false));
         });

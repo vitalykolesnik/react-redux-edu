@@ -76,16 +76,17 @@ export const setValidateMessage = (errors) => ({
     passwordError: errors.password,
 });
 
-export const getMe = () => {
+export const getAuthData = () => {
     return (dispatch) => {
         authAPI
             .me()
             .then((data) => {
                 if (!data.errorCode) {
+                    const { user_id, login } = data.dataValues;
                     dispatch(
                         setAuthUserData({
-                            userLogin: data.dataValues.login,
-                            userId: data.dataValues.user_id,
+                            userId: user_id,
+                            userLogin: login,
                             isAuth: true,
                         })
                     );
@@ -103,13 +104,7 @@ export const login = (login, password) => {
             .login(login, password)
             .then((data) => {
                 if (!data.errorCode) {
-                    dispatch(
-                        setAuthUserData({
-                            userLogin: data.dataValues.login,
-                            userId: data.dataValues.user_id,
-                            isAuth: true,
-                        })
-                    );
+                    dispatch(getAuthData());
                 }
             })
             .catch((e) => {
@@ -124,13 +119,7 @@ export const signup = (login, password) => {
             .signup(login, password)
             .then((data) => {
                 if (!data.errorCode) {
-                    dispatch(
-                        setAuthUserData({
-                            userLogin: data.dataValues.login,
-                            userId: data.dataValues.user_id,
-                            isAuth: true,
-                        })
-                    );
+                    dispatch(getAuthData());
                 }
             })
             .catch((e) => {

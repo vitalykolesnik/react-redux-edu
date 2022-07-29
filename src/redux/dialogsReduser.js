@@ -26,7 +26,8 @@ const initialState = {
 const dialogsReduser = (state = initialState, action) => {
     switch (action.type) {
         case SEND_MESSAGE: {
-            if (state.newMessageText) { // Check empty
+            if (state.newMessageText) {
+                // Check empty
                 const newMessage = {
                     id: state.messages.length + 1,
                     message: state.newMessageText,
@@ -65,7 +66,8 @@ export const setDialogs = (friends) => ({
 export const getDialogs = () => {
     return (dispatch) => {
         usersAPI.getUsers(1, 10).then((data) => {
-            dispatch(setDialogs(data.users));
+            const { users } = data;
+            dispatch(setDialogs(users));
         });
     };
 };

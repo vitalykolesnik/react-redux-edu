@@ -26,8 +26,9 @@ export const setFriends = (friends) => ({
 
 export const getFriends = () => {
     return (dispatch) => {
-        usersAPI.getUsers(1, 5).then((data) => {
-            dispatch(setFriends(data.users));
+        usersAPI.getUsers(1, 10).then((data) => {
+            const { users } = data;
+            dispatch(setFriends(users));
         });
     };
 };
