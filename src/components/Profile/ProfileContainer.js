@@ -3,25 +3,30 @@ import { withUriParameters } from 'components/hoc/withUriParameters';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import {
-    getUserPosts,
-    getUserProfile,
-    getUserStatus,
+    requestUserPosts,
+    requestUserProfile,
+    requestUserStatus,
     updateUserStatus,
 } from './../../redux/profileReduser';
 import Profile from './Profile';
 import { withAuthRedirect } from 'components/hoc/withAuthRedirect';
 import { withProfileId } from 'components/hoc/withProfileId';
+import {
+    getProfile,
+    getStatus,
+    getIsLoading,
+} from './../../redux/profileSelectors';
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        this.props.getUserProfile(this.props.profileId);
-        this.props.getUserStatus(this.props.profileId);
+        this.props.requestUserProfile(this.props.profileId);
+        this.props.requestUserStatus(this.props.profileId);
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.profileId !== this.props.profileId) {
-            this.props.getUserProfile(this.props.profileId);
-            this.props.getUserStatus(this.props.profileId);
+            this.props.requestUserProfile(this.props.profileId);
+            this.props.requestUserStatus(this.props.profileId);
         }
     }
 
@@ -39,9 +44,9 @@ class ProfileContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        profile: state.profilePage.profile,
-        status: state.profilePage.status,
-        isLoading: state.profilePage.isLoading,
+        profile: getProfile(state),
+        status: getStatus(state),
+        isLoading: getIsLoading(state),
     };
 };
 
@@ -61,9 +66,9 @@ export default compose(
     withAuthRedirect,
     withProfileId,
     connect(mapStateToProps, {
-        getUserProfile,
-        getUserStatus,
-        getUserPosts,
+        requestUserProfile,
+        requestUserStatus,
+        requestUserPosts,
         updateUserStatus,
     })
 )(ProfileContainer);

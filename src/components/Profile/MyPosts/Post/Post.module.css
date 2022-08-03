@@ -2,8 +2,10 @@
     display: flex;
     width: 480px;
     flex-flow: column nowrap;
+    flex-grow: 1;
+    flex-basis: 960px;
     padding: 1em;
-    margin: 0.5em 0.5em;
+    margin: 0.5em;
     border-radius: 1em;
     color: black;
     background-color: white
@@ -17,18 +19,25 @@
 }
 
 .item .itemInfo {
-    padding: 0.5em 0; 
     width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }
 
-.itemMessage {
+.item .itemMessage {
     padding:  0.5em; 
-    padding-bottom: 0;
     width: 100%;
-    text-align: center;
+    text-align: start;
+    hyphens: auto;
+    /* word-wrap: break-word; */
 }
 
 .itemLikesCount {
     padding: 0.5em;
     align-self: flex-end;
+}
+
+.itemLikesCount:hover {
+    cursor: pointer;
 }

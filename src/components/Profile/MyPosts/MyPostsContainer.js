@@ -1,22 +1,29 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import { getUserId } from '../../../redux/authSelectors';
+import {
+    getIsAdding,
+    getIsDeleting,
+    getPostMessage,
+    getPosts,
+} from '../../../redux/profileSelectors';
 import {
     typeText,
     addUserPost,
     deleteUserPost,
-    getUserPosts,
+    requestUserPosts,
 } from '../../../redux/profileReduser';
 import MyPosts from './MyPosts';
 
 class MyPostsContainer extends React.Component {
     componentDidMount() {
-        this.props.getUserPosts(this.props.profileId);
+        this.props.requestUserPosts(this.props.profileId);
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.profileId !== this.props.profileId) {
-            this.props.getUserPosts(this.props.profileId);
+            this.props.requestUserPosts(this.props.profileId);
         }
     }
 
@@ -41,11 +48,11 @@ class MyPostsContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userId: state.auth.userId,
-        isAdding: state.profilePage.isAdding,
-        isDeleting: state.profilePage.isDeleting,
-        posts: state.profilePage.posts,
-        postMessage: state.profilePage.postMessage,
+        userId: getUserId(state),
+        isAdding: getIsAdding(state),
+        isDeleting: getIsDeleting(state),
+        posts: getPosts(state),
+        postMessage: getPostMessage(state),
     };
 };
 
@@ -54,6 +61,6 @@ export default compose(
         addUserPost,
         deleteUserPost,
         typeText,
-        getUserPosts,
+        requestUserPosts,
     })
 )(MyPostsContainer);

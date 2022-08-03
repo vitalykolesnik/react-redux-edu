@@ -1,6 +1,7 @@
 import React from 'react';
-import u from './User.module.css';
 import { NavLink } from 'react-router-dom';
+import { setAvatar } from 'utils/setAvatar';
+import u from './User.module.css';
 
 const User = (props) => {
     const onSbscribe = () => {
@@ -13,11 +14,12 @@ const User = (props) => {
 
     return (
         <div className={u.user}>
-            <div className={u.userMainInfo}>
+            <div>
                 <NavLink to={'/profile/' + props.user_id}>
-                    <img src={props.image} alt={'oops'} />
+                    <img src={setAvatar(props.image)} alt={'oops'} />
                 </NavLink>
-                <div>{props.login}</div>
+                <div className={u.userLogin}>{props.login}</div>
+                <div>Status: {props.status}</div>
                 <div>
                     {props.subscribed ? (
                         <button onClick={onUnsubscribe}>unsubscribe</button>
@@ -27,7 +29,6 @@ const User = (props) => {
                 </div>
             </div>
             <div>Info: {props.description}</div>
-            <div>Status: {props.status}</div>
         </div>
     );
 };

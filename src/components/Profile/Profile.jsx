@@ -1,9 +1,9 @@
 import React from 'react';
 import s from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import ProfileStatus from './ProfileInfo/ProfileStatus';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import Preloader from 'components/other/Preloader/Preloader';
+import ProfileStatusWithHooks from './ProfileInfo/ProfileStatusWithHooks';
 
 const Profile = (props) => {
     return (
@@ -15,7 +15,7 @@ const Profile = (props) => {
                 ) : (
                     <div>
                         <ProfileInfo {...props.profile} />
-                        <ProfileStatus
+                        <ProfileStatusWithHooks
                             status={props.status}
                             updateStatus={props.updateStatus}
                         />

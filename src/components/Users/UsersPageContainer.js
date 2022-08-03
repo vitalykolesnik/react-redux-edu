@@ -4,17 +4,23 @@ import {
     subscribe,
     unsubscribe,
     setCurrentPage,
+    requestUsers,
+} from './../../redux/usersReduser';
+import {
     getUsers,
-} from 'redux/usersReduser';
+    getPageSize,
+    getCurrentPage,
+    getIsLoading,
+} from './../../redux/usersSelectors';
 import Users from './Users';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize);
+        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
     }
 
     setCurrentPage = (pageNumber) => {
-        this.props.getUsers(pageNumber, this.props.pageSize);
+        this.props.requestUsers(pageNumber, this.props.pageSize);
     };
 
     render() {
@@ -24,10 +30,10 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage.pageSize,
-        currentPage: state.usersPage.currentPage,
-        isLoading: state.usersPage.isLoading,
+        users: getUsers(state),
+        pageSize: getPageSize(state),
+        currentPage: getCurrentPage(state),
+        isLoading: getIsLoading(state),
     };
 };
 
@@ -35,7 +41,7 @@ const UsersPageContainer = connect(mapStateToProps, {
     subscribe,
     unsubscribe,
     setCurrentPage,
-    getUsers,
+    requestUsers,
 })(UsersContainer);
 
 export default UsersPageContainer;

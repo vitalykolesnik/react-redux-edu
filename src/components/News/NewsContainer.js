@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { getAllPosts } from './../../redux/profileReduser';
+import { getAllPosts } from 'redux/profileSelectors';
+import { requestAllPosts } from './../../redux/profileReduser';
 import AllNews from './AllNews';
 
 class NewsContainer extends React.Component {
     componentDidMount() {
-        this.props.getAllPosts();
+        this.props.requestAllPosts();
     }
 
     render() {
@@ -16,12 +17,12 @@ class NewsContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        allPosts: state.profilePage.allPosts,
+        allPosts: getAllPosts(state),
     };
 };
 
 export default compose(
     connect(mapStateToProps, {
-        getAllPosts,
+        requestAllPosts,
     })
 )(NewsContainer);

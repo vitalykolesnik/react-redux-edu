@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { getIsAuth, getUserLogin } from '../../redux/authSelectors';
 import Header from './Header';
 
 class HeaderContainer extends React.Component {
@@ -10,8 +11,8 @@ class HeaderContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        isAuth: state.auth.isAuth,
-        userLogin: state.auth.userLogin,
+        isAuth: getIsAuth(state),
+        userLogin: getUserLogin(state),
     };
 };
 

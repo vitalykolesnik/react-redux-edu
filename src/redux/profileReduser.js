@@ -132,20 +132,20 @@ export const toggleIsDeleting = (isDeleting, id) => ({
     id,
 });
 
-export const getUserProfile = (userId) => {
+export const requestUserProfile = (userId) => {
     return (dispatch) => {
         dispatch(togglePreloader(true));
         profileAPI.getProfile(userId).then((data) => {
             if (!data.errorCode) {
                 const { user } = data;
                 dispatch(setUserProfile(user));
-                dispatch(togglePreloader(false));
             }
+            dispatch(togglePreloader(false));
         });
     };
 };
 
-export const getUserStatus = (userId) => {
+export const requestUserStatus = (userId) => {
     return (dispatch) => {
         profileAPI.getStatus(userId).then((data) => {
             if (!data.errorCode) {
@@ -167,7 +167,7 @@ export const updateUserStatus = (status) => {
     };
 };
 
-export const getUserPosts = (profileId) => {
+export const requestUserPosts = (profileId) => {
     return (dispatch) => {
         profileAPI.getPosts(profileId).then((data) => {
             if (!data.errorCode) {
@@ -178,7 +178,7 @@ export const getUserPosts = (profileId) => {
     };
 };
 
-export const getAllPosts = () => {
+export const requestAllPosts = () => {
     return (dispatch) => {
         profileAPI.getAllPosts().then((data) => {
             if (!data.errorCode) {

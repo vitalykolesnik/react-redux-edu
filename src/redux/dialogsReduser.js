@@ -63,7 +63,7 @@ export const setDialogs = (friends) => ({
     friends,
 });
 
-export const getDialogs = () => {
+export const requestDialogs = () => {
     return (dispatch) => {
         usersAPI.getUsers(1, 10).then((data) => {
             const { users } = data;

@@ -4,6 +4,12 @@ import { compose } from 'redux';
 import { login, signup, typeLogin, typePassword } from 'redux/authReduser';
 import Login from './Login';
 import { withAutoRedirectToMain } from 'components/hoc/withAutoRedirect';
+import {
+    getLoginInput,
+    getPasswordInput,
+    getValidateLoginMessage,
+    getValidatePasswordMessage,
+} from 'redux/authSelectors';
 
 class LoginContainer extends React.Component {
     executeLogin = () => {
@@ -27,10 +33,10 @@ class LoginContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        validateLoginMessage: state.auth.validateLoginMessage,
-        validatePasswordMessage: state.auth.validatePasswordMessage,
-        loginInput: state.auth.loginInput,
-        passwordInput: state.auth.passwordInput,
+        validateLoginMessage: getValidateLoginMessage(state),
+        validatePasswordMessage: getValidatePasswordMessage(state),
+        loginInput: getLoginInput(state),
+        passwordInput: getPasswordInput(state),
     };
 };
 

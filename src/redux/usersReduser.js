@@ -9,7 +9,7 @@ const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER';
 
 const initialState = {
     users: [],
-    pageSize: 8,
+    pageSize: 4,
     totalUsersCount: 0,
     currentPage: 1,
     isLoading: false,
@@ -91,14 +91,14 @@ export const togglePreloader = (isLoading) => ({
     isLoading,
 });
 
-export const getUsers = (currentPage, pageSize) => {
+export const requestUsers = (currentPage, pageSize) => {
     return (dispatch) => {
         dispatch(togglePreloader(true));
         usersAPI.getUsers(currentPage, pageSize).then((data) => {
-            dispatch(togglePreloader(false));
             const { users, totalCount } = data;
             dispatch(setUsers(users));
             dispatch(setTotalUsersCount(totalCount));
+            dispatch(togglePreloader(false));
         });
     };
 }; // thunkCreator -> thunk -> callback

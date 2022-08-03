@@ -7,12 +7,14 @@
     display: flex;
     width: 100%;
     flex-flow: row wrap;
-    justify-content: stretch;
+    justify-content: space-between;
 }
 
 .news .item {
+    width: 300px;
     display: flex;
     flex-flow: column nowrap;
+    flex-grow: 1;
     padding: 0.5em;
     margin: 0.25em 0.25em;
     border-radius: 1em;
@@ -32,9 +34,11 @@
 }
 
 .news .item .itemMessage {
-    padding:  0.5em; 
-    width: 100%;
-    text-align: center;
+    padding: 0 1em 1em 1em;
+    width: 200px;
+    text-align: start;
+    hyphens: auto;
+    /* word-wrap: break-word; */
 }
 
 .news .item img {
@@ -47,4 +51,8 @@
 .news .itemLikesCount {
     padding: 0.5em;
     align-self: flex-end;
+}
+
+.news .itemLikesCount:hover {
+    cursor: pointer;
 }

@@ -14,6 +14,7 @@ import LoginContainer from 'components/Login/LoginContainer';
 import Logout from 'components/Logout/Logout';
 import { initialize } from 'redux/appReduser';
 import Preloader from 'components/other/Preloader/Preloader';
+import { getInitialized } from 'redux/appSelector';
 
 class App extends React.Component {
     componentDidMount() {
@@ -62,7 +63,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        initialized: state.app.initialized,
+        initialized: getInitialized(state),
     };
 };
 

@@ -39,7 +39,7 @@ export const authAPI = {
 };
 
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
+    getUsers(currentPage = 1, pageSize = 4) {
         return instance
             .get(`/users?page=${currentPage}&count=${pageSize}`)
             .then((res) => {
