@@ -1,11 +1,11 @@
 import { usersAPI } from 'api/api';
 
-const SEND_MESSAGE = 'SEND-MESSAGE';
-const TYPE_MESSAGE = 'TYPE-MESSAGE';
-const SET_DIALOGS = 'SET_DIALOGS';
+const SEND_MESSAGE = 'DIALOGS/SEND_MESSAGE';
+const TYPE_MESSAGE = 'DIALOGS/TYPE_MESSAGE';
+const SET_DIALOGS = 'DIALOGS/SET_DIALOGS';
 
 const initialState = {
-    dialogs: [],
+    friends: [],
     messages: [
         {
             id: 1,
@@ -27,7 +27,6 @@ const dialogsReduser = (state = initialState, action) => {
     switch (action.type) {
         case SEND_MESSAGE: {
             if (state.newMessageText) {
-                // Check empty
                 const newMessage = {
                     id: state.messages.length + 1,
                     message: state.newMessageText,
@@ -64,11 +63,9 @@ export const setDialogs = (friends) => ({
 });
 
 export const requestDialogs = () => {
-    return (dispatch) => {
-        usersAPI.getUsers(1, 10).then((data) => {
-            const { users } = data;
-            dispatch(setDialogs(users));
-        });
+    return async (dispatch) => {
+        let { friends } = await usersAPI.getFriends();
+        dispatch(setDialogs(friends));
     };
 };
 

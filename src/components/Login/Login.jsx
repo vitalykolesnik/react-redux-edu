@@ -1,23 +1,23 @@
 import React from 'react';
 import s from './Login.module.css';
 
-const Login = (props) => {
+const Login = ({ login, signup, typeLogin, typePassword, ...props }) => {
     const onLogin = (e) => {
         e.preventDefault();
-        props.login();
+        login();
     };
 
     const onSignup = (e) => {
         e.preventDefault();
-        props.signup();
+        signup();
     };
 
     const onTypeLogin = (e) => {
-        props.typeLogin(e.target.value);
+        typeLogin(e.target.value);
     };
 
     const onTypePassword = (e) => {
-        props.typePassword(e.target.value);
+        typePassword(e.target.value);
     };
 
     return (

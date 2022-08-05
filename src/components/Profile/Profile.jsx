@@ -5,21 +5,21 @@ import MyPostsContainer from './MyPosts/MyPostsContainer';
 import Preloader from 'components/other/Preloader/Preloader';
 import ProfileStatusWithHooks from './ProfileInfo/ProfileStatusWithHooks';
 
-const Profile = (props) => {
+const Profile = ({ profileId, profile, status, updateStatus, isLoading }) => {
     return (
         <div className={s.profile}>
             <div>
                 <h3>Profile</h3>
-                {props.isLoading ? (
+                {isLoading ? (
                     <Preloader />
                 ) : (
                     <div>
-                        <ProfileInfo {...props.profile} />
+                        <ProfileInfo {...profile} />
                         <ProfileStatusWithHooks
-                            status={props.status}
-                            updateStatus={props.updateStatus}
+                            status={status}
+                            updateStatus={updateStatus}
                         />
-                        <MyPostsContainer profileId={props.profileId} />
+                        <MyPostsContainer profileId={profileId} />
                     </div>
                 )}
             </div>

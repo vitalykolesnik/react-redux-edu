@@ -9,10 +9,6 @@ export const withAuthRedirect = (Component) => {
         if (!props.paramId && !isAuth) {
             return <Navigate to="/login" />;
         }
-
-        // console.log(
-        //     `withAuthRedirect from:${location.pathname} paramId: ${props.paramId}`
-        // );
         return <Component {...props} />;
     };
 

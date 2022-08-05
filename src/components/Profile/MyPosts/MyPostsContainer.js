@@ -16,23 +16,32 @@ import {
 } from '../../../redux/profileReduser';
 import MyPosts from './MyPosts';
 
-class MyPostsContainer extends React.Component {
+class MyPostsContainer extends React.PureComponent {
     componentDidMount() {
-        this.props.requestUserPosts(this.props.profileId);
+        let { profileId, requestUserPosts } = this.props;
+        requestUserPosts(profileId);
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.profileId !== this.props.profileId) {
-            this.props.requestUserPosts(this.props.profileId);
+        let { profileId, requestUserPosts } = this.props;
+        if (prevProps.profileId !== profileId) {
+            requestUserPosts(profileId);
         }
     }
 
+    // PureComponent execute
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return nextProps !== this.props || nextState !== this.state;
+    // }
+
     addUserPost() {
-        this.props.addUserPost(this.props.postMessage);
+        let { addUserPost, postMessage } = this.props;
+        addUserPost(postMessage);
     }
 
     executeDeleteUserPost(id) {
-        this.props.deleteUserPost(id);
+        let { deleteUserPost } = this.props;
+        deleteUserPost(id);
     }
 
     render() {

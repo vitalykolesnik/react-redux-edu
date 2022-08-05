@@ -1,9 +1,17 @@
 import React from 'react';
 import s from './Post.module.css';
 
-const Post = (props) => {
+const Post = ({
+    id,
+    userId,
+    profileId,
+    text,
+    likeCount,
+    isDeleting,
+    onDeleteUserPost,
+}) => {
     const onDeletePost = () => {
-        props.onDeleteUserPost(props.id);
+        onDeleteUserPost(id);
     };
 
     return (
@@ -14,16 +22,16 @@ const Post = (props) => {
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpyQ3Ez7fGNDmuULcJxaGc3CxZ5ohwAoFeGQ&usqp=CAU"
                         alt="Ooops"
                     />
-                    <div className={s.itemMessage}>{props.text}</div>
+                    <div className={s.itemMessage}>{text}</div>
                 </div>
             </div>
             <div className={s.itemLikesCount}>
-                <span>💗</span> {props.likeCount || 0}
+                <span>💗</span> {likeCount || 0}
             </div>
-            {props.profileId === props.userId ? (
+            {profileId === userId ? (
                 <button
                     onClick={onDeletePost}
-                    disabled={props.isDeleting.some((id) => id === props.id)}
+                    disabled={isDeleting.some((i) => i === id)}
                 >
                     X
                 </button>

@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getIsAuth, getUserLogin } from '../../redux/authSelectors';
+import { getIsAuth, getUserName } from '../../redux/authSelectors';
 import Header from './Header';
 
 class HeaderContainer extends React.Component {
     render() {
-        return <Header {...this.props} />;
+        const { isAuth, userName } = this.props;
+        return <Header isAuth={isAuth} userName={userName} />;
     }
 }
 
 const mapStateToProps = (state) => {
     return {
         isAuth: getIsAuth(state),
-        userLogin: getUserLogin(state),
+        userName: getUserName(state),
     };
 };
 

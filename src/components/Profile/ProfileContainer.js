@@ -19,21 +19,24 @@ import {
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        this.props.requestUserProfile(this.props.profileId);
-        this.props.requestUserStatus(this.props.profileId);
+        const { profileId, requestUserProfile, requestUserStatus } = this.props;
+        requestUserProfile(profileId);
+        requestUserStatus(profileId);
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.profileId !== this.props.profileId) {
-            this.props.requestUserProfile(this.props.profileId);
-            this.props.requestUserStatus(this.props.profileId);
+        const { profileId, requestUserProfile, requestUserStatus } = this.props;
+        if (prevProps.profileId !== profileId) {
+            requestUserProfile(profileId);
+            requestUserStatus(profileId);
         }
     }
 
     render() {
         return (
             <Profile
-                {...this.props}
+                profile={this.props.profile}
+                isLoading={this.props.isLoading}
                 profileId={this.props.profileId}
                 status={this.props.status}
                 updateStatus={this.props.updateUserStatus}

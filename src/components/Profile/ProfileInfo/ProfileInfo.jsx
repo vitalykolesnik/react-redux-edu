@@ -2,13 +2,13 @@ import React from 'react';
 import { setAvatar } from 'utils/setAvatar';
 import s from './ProfileInfo.module.css';
 
-const ProfileInfo = (props) => {
+const ProfileInfo = ({ name, image, description }) => {
     return (
         <div className={s.profileInfo}>
             <div className={s.descriptionBlock}>
-                <h3>{props.login}</h3>
-                <img src={setAvatar(props.image)} alt="ooops" />
-                <div>{props.description}</div>
+                <h3>{name}</h3>
+                <img src={setAvatar(image)} alt="ooops" />
+                <div>{description}</div>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import dialogsReduser from './dialogsReduser';
-import navReduser from './navReduser';
+// import navReduser from './navReduser.111js';
 import profileReduser from './profileReduser';
 import usersReduser from './usersReduser';
 import authReduser from './authReduser';
@@ -10,7 +10,7 @@ import thunkMiddleware from 'redux-thunk';
 let redusers = combineReducers({
     profilePage: profileReduser,
     dialogsPage: dialogsReduser,
-    navBar: navReduser,
+    // navBar: navReduser,
     usersPage: usersReduser,
     auth: authReduser,
     app: appReduser,

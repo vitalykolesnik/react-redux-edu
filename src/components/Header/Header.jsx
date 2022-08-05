@@ -3,15 +3,15 @@ import s from './Header.module.css';
 import kittenHeader from './../../assets/image/kitten-header.png';
 import { NavLink } from 'react-router-dom';
 
-const Header = (props) => {
+const Header = ({ userName, isAuth }) => {
     return (
         <header className={s.header}>
             <div className={s.avatar}>
                 <img src={kittenHeader} alt="Ooops" />
             </div>
             <div className={s.loginBlock}>
-                <h4>Hello, {props.userLogin}!</h4>
-                {props.isAuth ? (
+                <h4>Hello, {userName}!</h4>
+                {isAuth ? (
                     <div>
                         <div>
                             <NavLink to="/logout">Logout</NavLink>

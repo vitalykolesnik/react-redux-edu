@@ -5,9 +5,9 @@ import { compose } from 'redux';
 import { withAuthRedirect } from 'components/hoc/withAuthRedirect';
 import { getIsAuth } from 'redux/authSelectors';
 
-const Logout = (props) => {
+const Logout = ({ logout }) => {
     useEffect(() => {
-        props.logout();
+        logout();
     });
 
     return <></>;

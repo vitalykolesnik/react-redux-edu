@@ -1,8 +1,6 @@
 import React from 'react';
 import s from './Navbar.module.css';
 import { NavLink } from 'react-router-dom';
-import Sidebar from './Sidebar/Sidebar';
-// import Sidebar from './Sidebar/Sidebar';
 
 const setActive = ({ isActive }) => (isActive ? s.activeLink : '');
 
@@ -39,7 +37,6 @@ const Navbar = () => {
                     Find users
                 </NavLink>
             </div>
-            <Sidebar />
         </nav>
     );
 };

@@ -1,26 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { getUserId } from 'redux/authSelectors';
 import {
-    subscribe,
-    unsubscribe,
     setCurrentPage,
     requestUsers,
+    requestSubscribe,
+    requestUnsubscribe,
 } from './../../redux/usersReduser';
 import {
     getUsers,
+    getFriends,
     getPageSize,
     getCurrentPage,
     getIsLoading,
+    getIsSubscribing,
 } from './../../redux/usersSelectors';
 import Users from './Users';
 
 class UsersContainer extends React.Component {
     componentDidMount() {
-        this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+        let { currentPage, pageSize, requestUsers } = this.props;
+        requestUsers(currentPage, pageSize);
     }
 
     setCurrentPage = (pageNumber) => {
-        this.props.requestUsers(pageNumber, this.props.pageSize);
+        let { pageSize, requestUsers } = this.props;
+        requestUsers(pageNumber, pageSize);
     };
 
     render() {
@@ -30,16 +35,19 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
     return {
+        userId: getUserId(state),
         users: getUsers(state),
+        friends: getFriends(state),
         pageSize: getPageSize(state),
         currentPage: getCurrentPage(state),
         isLoading: getIsLoading(state),
+        isSubscribing: getIsSubscribing(state),
     };
 };
 
 const UsersPageContainer = connect(mapStateToProps, {
-    subscribe,
-    unsubscribe,
+    requestSubscribe,
+    requestUnsubscribe,
     setCurrentPage,
     requestUsers,
 })(UsersContainer);

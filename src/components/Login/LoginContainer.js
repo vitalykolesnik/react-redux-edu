@@ -13,11 +13,13 @@ import {
 
 class LoginContainer extends React.Component {
     executeLogin = () => {
-        this.props.login(this.props.loginInput, this.props.passwordInput);
+        let { loginInput, passwordInput } = this.props;
+        this.props.login(loginInput, passwordInput);
     };
 
     executeSignup = () => {
-        this.props.signup(this.props.loginInput, this.props.passwordInput);
+        let { loginInput, passwordInput } = this.props;
+        this.props.signup(loginInput, passwordInput);
     };
 
     render() {

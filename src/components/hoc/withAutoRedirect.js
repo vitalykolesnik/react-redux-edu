@@ -7,7 +7,6 @@ export const withAutoRedirectToMain = (Component) => {
         const isAuth = useSelector((state) => state.auth.isAuth);
         const pathFrom = useSelector((state) => state.auth.pathFrom);
 
-        // console.log(`withAuthRedirectTo to:${pathFrom}`);
         if (isAuth) {
             return <Navigate to={pathFrom || '/profile'} />;
         }

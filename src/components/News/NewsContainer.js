@@ -11,7 +11,7 @@ class NewsContainer extends React.Component {
     }
 
     render() {
-        return <AllNews {...this.props} />;
+        return <AllNews allPosts={this.props.allPosts} />;
     }
 }
 

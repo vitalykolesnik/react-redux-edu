@@ -1,21 +1,21 @@
 import { profileAPI } from 'api/api';
 
-const ADD_POST = 'ADD_POST';
-const DELETE_POST = 'DELETE_POST';
-const TYPE_TEXT = 'TYPE-TEXT';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_USER_POSTS = 'SET_USER_POSTS';
-const SET_ALL_POSTS = 'SET_ALL_POSTS';
-const SET_USER_STATUS = 'SET_USER_STATUS';
-const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER';
-const TOGGLE_ADD_STATUS = 'TOGGLE_ADD_STATUS';
-const TOGGLE_DELETE_STATUS = 'TOGGLE_DELETE_STATUS';
+const ADD_POST = 'PROFILE/ADD_POST';
+const DELETE_POST = 'PROFILE/DELETE_POST';
+const TYPE_TEXT = 'PROFILE/TYPE_TEXT';
+const SET_USER_PROFILE = 'PROFILE/SET_USER_PROFILE';
+const SET_USER_POSTS = 'PROFILE/SET_USER_POSTS';
+const SET_ALL_POSTS = 'PROFILE/SET_ALL_POSTS';
+const SET_USER_STATUS = 'PROFILE/SET_USER_STATUS';
+const TOGGLE_PRELOADER = 'PROFILE/TOGGLE_PRELOADER';
+const TOGGLE_ADD_STATUS = 'PROFILE/TOGGLE_ADD_STATUS';
+const TOGGLE_DELETE_STATUS = 'PROFILE/TOGGLE_DELETE_STATUS';
 
 const initialState = {
     profileId: null,
     profile: null,
-    posts: [],
     allPosts: [],
+    posts: [],
     isLoading: false,
     isAdding: false,
     isDeleting: [],
@@ -133,84 +133,77 @@ export const toggleIsDeleting = (isDeleting, id) => ({
 });
 
 export const requestUserProfile = (userId) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(togglePreloader(true));
-        profileAPI.getProfile(userId).then((data) => {
-            if (!data.errorCode) {
-                const { user } = data;
-                dispatch(setUserProfile(user));
-            }
-            dispatch(togglePreloader(false));
-        });
+        let response = await profileAPI.getProfile(userId);
+        if (!response.errorCode) {
+            const { profile } = response;
+            dispatch(setUserProfile(profile));
+        }
+        dispatch(togglePreloader(false));
     };
 };
 
 export const requestUserStatus = (userId) => {
-    return (dispatch) => {
-        profileAPI.getStatus(userId).then((data) => {
-            if (!data.errorCode) {
-                const { status } = data;
-                dispatch(setUserStatus(status));
-            }
-        });
+    return async (dispatch) => {
+        let response = await profileAPI.getStatus(userId);
+        if (!response.errorCode) {
+            const { status } = response;
+            dispatch(setUserStatus(status));
+        }
     };
 };
 
 export const updateUserStatus = (status) => {
-    return (dispatch) => {
-        profileAPI.updateStatus(status).then((data) => {
-            if (!data.errorCode) {
-                const { status } = data;
-                dispatch(setUserStatus(status));
-            }
-        });
+    return async (dispatch) => {
+        let response = await profileAPI.updateStatus(status);
+        if (!response.errorCode) {
+            const { status } = response;
+            dispatch(setUserStatus(status));
+        }
     };
 };
 
 export const requestUserPosts = (profileId) => {
-    return (dispatch) => {
-        profileAPI.getPosts(profileId).then((data) => {
-            if (!data.errorCode) {
-                const { posts } = data;
-                dispatch(setUserPosts(posts));
-            }
-        });
+    return async (dispatch) => {
+        let response = await profileAPI.getPosts(profileId);
+        if (!response.errorCode) {
+            const { posts } = response;
+            dispatch(setUserPosts(posts));
+        }
     };
 };
 
 export const requestAllPosts = () => {
-    return (dispatch) => {
-        profileAPI.getAllPosts().then((data) => {
-            if (!data.errorCode) {
-                const { posts } = data;
-                dispatch(setAllPosts(posts));
-            }
-        });
+    return async (dispatch) => {
+        let response = await profileAPI.getAllPosts();
+        if (!response.errorCode) {
+            const { posts } = response;
+            dispatch(setAllPosts(posts));
+        }
     };
 };
 
 export const addUserPost = (post) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsAdding(true));
-        profileAPI.addPost(post).then((data) => {
-            if (!data.errorCode) {
-                const { dataValues: posts } = data;
-                dispatch(addPosts(posts));
-            }
-            dispatch(toggleIsAdding(false));
-        });
+        let response = await profileAPI.addPost(post);
+        if (!response.errorCode) {
+            const { dataValues: posts } = response;
+            dispatch(addPosts(posts));
+        }
+        dispatch(toggleIsAdding(false));
     };
 };
 
 export const deleteUserPost = (id) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(toggleIsDeleting(true, id));
-        profileAPI.deletePost(id).then((data) => {
-            if (!data.errorCode) {
-                dispatch(deletePost(id));
-            }
-            dispatch(toggleIsDeleting(false, id));
-        });
+        let response = await profileAPI.deletePost(id);
+        if (!response.errorCode) {
+            dispatch(deletePost(id));
+        }
+        dispatch(toggleIsDeleting(false, id));
     };
 };
 

@@ -3,15 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { setAvatar } from 'utils/setAvatar';
 import s from './DialogItem.module.css';
 
-const DialogItem = (props) => {
-    let path = '/dialogs/' + props.user_id;
+const DialogItem = ({ id, name, image }) => {
+    let path = '/dialogs/' + id;
     return (
         <div className={s.dialogItem}>
             <NavLink to={path}>
                 <div>
-                    <img src={setAvatar(props.image)} alt="Oooops" />
-                    <div>{props.login}</div>
-                    <p>{props.name}</p>
+                    <img src={setAvatar(image)} alt="Oooops" />
+                    <div>{name}</div>
                 </div>
             </NavLink>
         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import s from './News.module.css';
 import incognito from './../../assets/image/user_icon.png';
 
-const News = (props) => {
+const News = ({ profile, text, likeCount }) => {
     return (
         <div className={s.item}>
             <div className={s.itemInfo}>
@@ -10,15 +10,15 @@ const News = (props) => {
                     {' '}
                     <img
                         // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpyQ3Ez7fGNDmuULcJxaGc3CxZ5ohwAoFeGQ&usqp=CAU"
-                        src={props.app_user.image || incognito}
+                        src={profile.image || incognito}
                         alt="Ooops"
                     />
-                    {props.app_user.login}
+                    {profile.name}
                 </div>
-                <div className={s.itemMessage}>{props.text}</div>
+                <div className={s.itemMessage}>{text}</div>
             </div>
             <div className={s.itemLikesCount}>
-                <span>💗</span> {props.likeCount || 0}
+                <span>💗</span> {likeCount || 0}
             </div>
         </div>
     );

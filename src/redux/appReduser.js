@@ -1,6 +1,6 @@
 import { getAuthData } from './authReduser';
 
-const INITIALIZED = 'INITIALIZED';
+const INITIALIZED = 'APP/INITIALIZED';
 
 const initialState = {
     initialized: false,
@@ -25,8 +25,8 @@ export const setInitializeSuccess = () => ({
 
 export const initialize = () => {
     return (dispatch) => {
-        const promise = dispatch(getAuthData());
-        Promise.all([promise]).then(() => {
+        let responce = dispatch(getAuthData());
+        Promise.all([responce]).then(() => {
             dispatch(setInitializeSuccess());
         });
     };

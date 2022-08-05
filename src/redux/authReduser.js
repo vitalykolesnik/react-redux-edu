@@ -1,15 +1,15 @@
-import { authAPI } from 'api/api';
+import { authAPI, profileAPI } from 'api/api';
 
-const SET_USER_DATA = 'SET_USER_DATA';
-const TYPE_LOGIN = 'TYPE_LOGIN';
-const TYPE_PASSWORD = 'TYPE_PASSWORD';
-const VALIDATE = 'VALIDATE';
+const SET_USER_DATA = 'AUTH/SET_USER_DATA';
+const TYPE_LOGIN = 'AUTH/TYPE_LOGIN';
+const TYPE_PASSWORD = 'AUTH/TYPE_PASSWORD';
+const VALIDATE = 'AUTH/VALIDATE';
 
-const STARTING_USER_LOGIN = 'Guest';
+const STARTING_USER_NAME = 'Guest';
 
 const initialState = {
     userId: null,
-    userLogin: STARTING_USER_LOGIN,
+    userName: STARTING_USER_NAME,
     isAuth: false,
     loginInput: '',
     passwordInput: '',
@@ -22,8 +22,8 @@ const authReduser = (state = initialState, action) => {
         case SET_USER_DATA: {
             return {
                 ...state,
-                userLogin: action.userLogin,
                 userId: action.userId,
+                userName: action.userName,
                 isAuth: action.isAuth,
             };
         }
@@ -55,8 +55,8 @@ const authReduser = (state = initialState, action) => {
 
 export const setAuthUserData = (user) => ({
     type: SET_USER_DATA,
-    userLogin: user.userLogin,
     userId: user.userId,
+    userName: user.userName,
     isAuth: user.isAuth,
 });
 
@@ -77,73 +77,67 @@ export const setValidateMessage = (errors) => ({
 });
 
 export const getAuthData = () => {
-    return (dispatch) => {
-        authAPI
-            .me()
-            .then((data) => {
-                if (!data.errorCode) {
-                    const { user_id, login } = data.dataValues;
-                    dispatch(
-                        setAuthUserData({
-                            userId: user_id,
-                            userLogin: login,
-                            isAuth: true,
-                        })
-                    );
-                }
-            })
-            .catch((e) => {
-                console.log('Unautorized');
-            });
+    return async (dispatch) => {
+        try {
+            let response = await profileAPI.getMe();
+            if (!response.errorCode) {
+                const { id, name } = response.dataValues;
+                dispatch(
+                    setAuthUserData({
+                        userId: id,
+                        userName: name,
+                        isAuth: true,
+                    })
+                );
+            }
+        } catch (e) {
+            console.log('Unautorized');
+        }
     };
 };
 
 export const login = (login, password) => {
-    return (dispatch) => {
-        authAPI
-            .login(login, password)
-            .then((data) => {
-                if (!data.errorCode) {
-                    dispatch(getAuthData());
-                }
-            })
-            .catch((e) => {
-                dispatch(setValidateMessage(e.response.data.errors));
-            });
+    return async (dispatch) => {
+        try {
+            let response = await authAPI.login(login, password);
+            if (!response.errorCode) {
+                dispatch(getAuthData());
+            }
+        } catch (e) {
+            dispatch(setValidateMessage(e.response.data.errors));
+        }
     };
 };
 
 export const signup = (login, password) => {
-    return (dispatch) => {
-        authAPI
-            .signup(login, password)
-            .then((data) => {
-                if (!data.errorCode) {
-                    dispatch(getAuthData());
-                }
-            })
-            .catch((e) => {
-                dispatch(setValidateMessage(e.response.data.errors));
-            });
+    return async (dispatch) => {
+        try {
+            let response = await authAPI.signup(login, password);
+            if (!response.errorCode) {
+                dispatch(getAuthData());
+            }
+        } catch (e) {
+            dispatch(setValidateMessage(e.response.data.errors));
+        }
     };
 };
 
 export const logout = () => {
-    return (dispatch) => {
-        authAPI
-            .logout()
-            .then((data) => {
-                if (!data.errorCode) {
-                    dispatch(
-                        setAuthUserData({
-                            userId: null,
-                            userLogin: STARTING_USER_LOGIN,
-                            isAuth: false,
-                        })
-                    );
-                }
-            })
-            .catch((e) => console.log(e));
+    return async (dispatch) => {
+        try {
+            let response = await authAPI.logout();
+            if (!response.errorCode) {
+                dispatch(
+                    setAuthUserData({
+                        userId: null,
+                        userName: STARTING_USER_NAME,
+                        isAuth: false,
+                    })
+                );
+            }
+        } catch (e) {
+            console.log(e);
+        }
     };
 };
 

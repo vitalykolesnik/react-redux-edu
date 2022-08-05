@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import s from './ProfileStatus.module.css';
 
-const ProfileStatusWithHooks = (props) => {
+const ProfileStatusWithHooks = ({ status, updateStatus }) => {
     const [editMode, setEditMode] = useState(false);
-    const [status, setStatus] = useState(props.status);
+    const [statusState, setStatusState] = useState(status);
 
     useEffect(() => {
-        setStatus(props.status);
-    }, [props.status]);
+        setStatusState(status);
+    }, [status]);
 
     const onEnableEditMode = () => {
         setEditMode(true);
@@ -15,11 +15,11 @@ const ProfileStatusWithHooks = (props) => {
 
     const onDisableEditMode = () => {
         setEditMode(false);
-        props.updateStatus(status);
+        updateStatus(statusState);
     };
 
     const onStatusChange = (e) => {
-        setStatus(e.currentTarget.value);
+        setStatusState(e.currentTarget.value);
     };
 
     return (
@@ -29,11 +29,11 @@ const ProfileStatusWithHooks = (props) => {
                     autoFocus={true}
                     onChange={onStatusChange}
                     onBlur={onDisableEditMode}
-                    value={status}
+                    value={statusState}
                 />
             ) : (
                 <span className={s.statusText} onDoubleClick={onEnableEditMode}>
-                    {status || 'No status'}
+                    {statusState || 'No status'}
                 </span>
             )}
         </div>

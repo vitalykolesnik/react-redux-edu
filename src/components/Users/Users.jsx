@@ -3,8 +3,20 @@ import s from './Users.module.css';
 import User from './User/User';
 import Preloader from '../other/Preloader/Preloader';
 
-const Users = (props) => {
-    let pageCount = Math.ceil(props.totalUsersCount / props.pageSize);
+const Users = ({
+    users,
+    userId,
+    friends,
+    requestSubscribe,
+    requestUnsubscribe,
+    isLoading,
+    isSubscribing,
+    totalUsersCount,
+    pageSize,
+    setCurrentPage,
+    currentPage,
+}) => {
+    let pageCount = Math.ceil(totalUsersCount / pageSize);
 
     let pages = [];
     for (let i = 1; i <= pageCount; i++) {
@@ -12,7 +24,7 @@ const Users = (props) => {
     }
 
     let onPageChanged = (pageNumber) => {
-        props.setCurrentPage(pageNumber);
+        setCurrentPage(pageNumber);
     };
 
     return (
@@ -20,7 +32,7 @@ const Users = (props) => {
             <div>
                 <h3>Users</h3>
             </div>
-            {props.isLoading ? (
+            {isLoading ? (
                 <Preloader />
             ) : (
                 <div>
@@ -29,9 +41,7 @@ const Users = (props) => {
                             return (
                                 <span
                                     className={
-                                        props.currentPage === p
-                                            ? s.selectedPage
-                                            : ''
+                                        currentPage === p ? s.selectedPage : ''
                                     }
                                     onClick={() => onPageChanged(p)}
                                     key={i}
@@ -43,12 +53,15 @@ const Users = (props) => {
                         })}
                     </div>
                     <div className={s.usersPage}>
-                        {props.users.map((u) => (
+                        {users.map((u) => (
                             <User
                                 {...u}
-                                key={u.user_id}
-                                subscribe={props.subscribe}
-                                unsubscribe={props.unsubscribe}
+                                key={u.id}
+                                friends={friends}
+                                userId={userId}
+                                isSubscribing={isSubscribing}
+                                subscribe={requestSubscribe}
+                                unsubscribe={requestUnsubscribe}
                             />
                         ))}
                     </div>

@@ -31,17 +31,31 @@ export const authAPI = {
             return res.data;
         });
     },
-    me() {
-        return instance.get(`/me`).then((res) => {
-            return res.data;
-        });
-    },
 };
 
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 4) {
+    getUsers(currentPage = 1, pageSize = 10) {
         return instance
             .get(`/users?page=${currentPage}&count=${pageSize}`)
+            .then((res) => {
+                return res.data;
+            });
+    },
+    getFriends() {
+        return instance.get(`/friends`).then((res) => {
+            return res.data;
+        });
+    },
+    subscribe(profileId) {
+        return instance
+            .post(`/friends/subscribe`, { profileId })
+            .then((res) => {
+                return res.data;
+            });
+    },
+    unsubscribe(profileId) {
+        return instance
+            .post(`/friends/unsubscribe`, { profileId })
             .then((res) => {
                 return res.data;
             });
@@ -49,6 +63,11 @@ export const usersAPI = {
 };
 
 export const profileAPI = {
+    getMe() {
+        return instance.get(`/users/me`).then((res) => {
+            return res.data;
+        });
+    },
     getProfile(id) {
         return instance.get(`/users/${id}`).then((res) => {
             return res.data;

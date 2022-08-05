@@ -25,7 +25,7 @@ const MyPosts = (props) => {
     return (
         <div className={s.myPosts}>
             <h3>My posts</h3>
-            {props.profileId === props.userId ? (
+            {props.userId === +props.profileId ? (
                 <div>
                     <div>
                         <textarea
