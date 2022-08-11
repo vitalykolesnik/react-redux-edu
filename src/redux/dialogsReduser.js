@@ -1,7 +1,6 @@
 import { usersAPI } from 'api/api';
 
 const SEND_MESSAGE = 'DIALOGS/SEND_MESSAGE';
-const TYPE_MESSAGE = 'DIALOGS/TYPE_MESSAGE';
 const SET_DIALOGS = 'DIALOGS/SET_DIALOGS';
 
 const initialState = {
@@ -20,27 +19,20 @@ const initialState = {
             message: 'Cool!!!',
         },
     ],
-    newMessageText: '',
 };
 
 const dialogsReduser = (state = initialState, action) => {
     switch (action.type) {
         case SEND_MESSAGE: {
-            if (state.newMessageText) {
-                const newMessage = {
-                    id: state.messages.length + 1,
-                    message: state.newMessageText,
-                };
-                return {
-                    ...state,
-                    messages: [...state.messages, newMessage],
-                    newMessageText: '',
-                };
-            }
-            return state;
-        }
-        case TYPE_MESSAGE: {
-            return { ...state, newMessageText: action.textMessage };
+            const text = action.newMessage.messageText;
+            const newMessage = {
+                id: state.messages.length + 1,
+                message: text,
+            };
+            return {
+                ...state,
+                messages: [...state.messages, newMessage],
+            };
         }
         case SET_DIALOGS: {
             return { ...state, dialogs: action.friends };
@@ -50,11 +42,9 @@ const dialogsReduser = (state = initialState, action) => {
     }
 };
 
-export const sendMessage = () => ({ type: SEND_MESSAGE });
-
-export const typeMessage = (text) => ({
-    type: TYPE_MESSAGE,
-    textMessage: text,
+export const sendMessage = (newMessage) => ({
+    type: SEND_MESSAGE,
+    newMessage,
 });
 
 export const setDialogs = (friends) => ({

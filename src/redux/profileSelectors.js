@@ -10,10 +10,6 @@ export const getAllPosts = (state) => {
     return state.profilePage.allPosts;
 };
 
-export const getPostMessage = (state) => {
-    return state.profilePage.postMessage;
-};
-
 export const getStatus = (state) => {
     return state.profilePage.status;
 };

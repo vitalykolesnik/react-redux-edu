@@ -1,8 +1,7 @@
 import { authAPI, profileAPI } from 'api/api';
+import { stopSubmit } from 'redux-form';
 
 const SET_USER_DATA = 'AUTH/SET_USER_DATA';
-const TYPE_LOGIN = 'AUTH/TYPE_LOGIN';
-const TYPE_PASSWORD = 'AUTH/TYPE_PASSWORD';
 const VALIDATE = 'AUTH/VALIDATE';
 
 const STARTING_USER_NAME = 'Guest';
@@ -11,10 +10,6 @@ const initialState = {
     userId: null,
     userName: STARTING_USER_NAME,
     isAuth: false,
-    loginInput: '',
-    passwordInput: '',
-    validateLoginMessage: '',
-    validatePasswordMessage: '',
 };
 
 const authReduser = (state = initialState, action) => {
@@ -25,20 +20,6 @@ const authReduser = (state = initialState, action) => {
                 userId: action.userId,
                 userName: action.userName,
                 isAuth: action.isAuth,
-            };
-        }
-        case TYPE_LOGIN: {
-            return {
-                ...state,
-                loginInput: action.login,
-                validateLoginMessage: '',
-            };
-        }
-        case TYPE_PASSWORD: {
-            return {
-                ...state,
-                passwordInput: action.password,
-                validatePasswordMessage: '',
             };
         }
         case VALIDATE: {
@@ -60,16 +41,6 @@ export const setAuthUserData = (user) => ({
     isAuth: user.isAuth,
 });
 
-export const typeLogin = (login) => ({
-    type: TYPE_LOGIN,
-    login,
-});
-
-export const typePassword = (password) => ({
-    type: TYPE_PASSWORD,
-    password,
-});
-
 export const setValidateMessage = (errors) => ({
     type: VALIDATE,
     loginError: errors.login,
@@ -78,65 +49,55 @@ export const setValidateMessage = (errors) => ({
 
 export const getAuthData = () => {
     return async (dispatch) => {
-        try {
-            let response = await profileAPI.getMe();
-            if (!response.errorCode) {
-                const { id, name } = response.dataValues;
-                dispatch(
-                    setAuthUserData({
-                        userId: id,
-                        userName: name,
-                        isAuth: true,
-                    })
-                );
-            }
-        } catch (e) {
-            console.log('Unautorized');
+        let response = await profileAPI.getMe();
+        if (!response.errorCode) {
+            const { id, name } = response.dataValues;
+            dispatch(
+                setAuthUserData({
+                    userId: id,
+                    userName: name,
+                    isAuth: true,
+                })
+            );
         }
     };
 };
 
 export const login = (login, password) => {
     return async (dispatch) => {
-        try {
-            let response = await authAPI.login(login, password);
-            if (!response.errorCode) {
-                dispatch(getAuthData());
-            }
-        } catch (e) {
-            dispatch(setValidateMessage(e.response.data.errors));
+        let response = await authAPI.login(login, password);
+        if (!response.errorCode) {
+            dispatch(getAuthData());
+        } else {
+            dispatch(
+                stopSubmit('login', {
+                    _error: response.errors.login,
+                })
+            );
         }
     };
 };
 
 export const signup = (login, password) => {
     return async (dispatch) => {
-        try {
-            let response = await authAPI.signup(login, password);
-            if (!response.errorCode) {
-                dispatch(getAuthData());
-            }
-        } catch (e) {
-            dispatch(setValidateMessage(e.response.data.errors));
+        let response = await authAPI.signup(login, password);
+        if (!response.errorCode) {
+            dispatch(getAuthData());
         }
     };
 };
 
 export const logout = () => {
     return async (dispatch) => {
-        try {
-            let response = await authAPI.logout();
-            if (!response.errorCode) {
-                dispatch(
-                    setAuthUserData({
-                        userId: null,
-                        userName: STARTING_USER_NAME,
-                        isAuth: false,
-                    })
-                );
-            }
-        } catch (e) {
-            console.log(e);
+        let response = await authAPI.logout();
+        if (!response.errorCode) {
+            dispatch(
+                setAuthUserData({
+                    userId: null,
+                    userName: STARTING_USER_NAME,
+                    isAuth: false,
+                })
+            );
         }
     };
 };

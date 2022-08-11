@@ -1,63 +1,50 @@
 import React from 'react';
+import { Input } from 'components/other/FormsControls/FormsControl';
+import { Field, reduxForm } from 'redux-form';
+import { required } from 'utils/validators';
 import s from './Login.module.css';
 
-const Login = ({ login, signup, typeLogin, typePassword, ...props }) => {
-    const onLogin = (e) => {
-        e.preventDefault();
-        login();
-    };
+const LoginForm = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field
+                    name="login"
+                    placeholder="Enter login"
+                    component={Input}
+                    validate={[required]}
+                />
+            </div>
+            <div>
+                <Field
+                    name="password"
+                    type="password"
+                    placeholder="Enter password"
+                    component={Input}
+                    validate={[required]}
+                />
+            </div>
+            <div className={s.validation}>{props.error}</div>
+            <div>
+                <button>Login</button>
+            </div>
+        </form>
+    );
+};
 
-    const onSignup = (e) => {
-        e.preventDefault();
-        signup();
-    };
+const LoginReduxForm = reduxForm({
+    form: 'login',
+})(LoginForm);
 
-    const onTypeLogin = (e) => {
-        typeLogin(e.target.value);
-    };
-
-    const onTypePassword = (e) => {
-        typePassword(e.target.value);
+const Login = ({ login }) => {
+    const onSubmit = (formData) => {
+        login(formData);
     };
 
     return (
         <div className={s.container}>
             <h3>Login</h3>
-            <form>
-                <div>
-                    <input
-                        value={props.loginInput}
-                        placeholder="Enter login"
-                        onChange={onTypeLogin}
-                    />
-                    <div className={s.validation}>
-                        {props.validateLoginMessage}
-                    </div>
-                </div>
-                <div>
-                    <input
-                        type="password"
-                        value={props.passwordInput}
-                        placeholder="Enter password"
-                        onChange={onTypePassword}
-                    />
-                    <div className={s.validation}>
-                        {props.validatePasswordMessage}
-                    </div>
-                </div>
-                <div>
-                    <div>
-                        <button type="submit" onClick={onLogin}>
-                            Login
-                        </button>
-                    </div>
-                    <div>
-                        <button type="submit" onClick={onSignup}>
-                            Signup
-                        </button>
-                    </div>
-                </div>
-            </form>
+            <LoginReduxForm onSubmit={onSubmit} />
         </div>
     );
 };

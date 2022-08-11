@@ -11,7 +11,6 @@ import NewsContainer from './components/News/NewsContainer';
 import UsersPageContainer from 'components/Users/UsersPageContainer';
 import ProfilePageContainer from 'components/Profile/ProfileContainer';
 import LoginContainer from 'components/Login/LoginContainer';
-import Logout from 'components/Logout/Logout';
 import { initialize } from 'redux/appReduser';
 import Preloader from 'components/other/Preloader/Preloader';
 import { getInitialized } from 'redux/appSelector';
@@ -31,7 +30,6 @@ class App extends React.Component {
                         <Routes>
                             <Route path="/" element={<LoginContainer />} />
                             <Route path="/login" element={<LoginContainer />} />
-                            <Route path="/logout" element={<Logout />} />
                             <Route
                                 path="/profile"
                                 element={<ProfilePageContainer />}

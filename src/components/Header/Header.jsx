@@ -3,7 +3,7 @@ import s from './Header.module.css';
 import kittenHeader from './../../assets/image/kitten-header.png';
 import { NavLink } from 'react-router-dom';
 
-const Header = ({ userName, isAuth }) => {
+const Header = ({ userName, isAuth, logout }) => {
     return (
         <header className={s.header}>
             <div className={s.avatar}>
@@ -14,7 +14,7 @@ const Header = ({ userName, isAuth }) => {
                 {isAuth ? (
                     <div>
                         <div>
-                            <NavLink to="/logout">Logout</NavLink>
+                            <button onClick={logout}>Logout</button>
                         </div>
                     </div>
                 ) : (

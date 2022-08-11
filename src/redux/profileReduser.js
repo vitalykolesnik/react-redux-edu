@@ -2,7 +2,6 @@ import { profileAPI } from 'api/api';
 
 const ADD_POST = 'PROFILE/ADD_POST';
 const DELETE_POST = 'PROFILE/DELETE_POST';
-const TYPE_TEXT = 'PROFILE/TYPE_TEXT';
 const SET_USER_PROFILE = 'PROFILE/SET_USER_PROFILE';
 const SET_USER_POSTS = 'PROFILE/SET_USER_POSTS';
 const SET_ALL_POSTS = 'PROFILE/SET_ALL_POSTS';
@@ -19,18 +18,17 @@ const initialState = {
     isLoading: false,
     isAdding: false,
     isDeleting: [],
-    postMessage: '',
     status: '',
 };
 
 const profileReduser = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: {
-            if (state.postMessage) {
+            const post = action.post;
+            if (post) {
                 return {
                     ...state,
-                    posts: [...state.posts, action.post],
-                    postMessage: '',
+                    posts: [...state.posts, post],
                 };
             }
             return state;
@@ -40,9 +38,6 @@ const profileReduser = (state = initialState, action) => {
                 ...state,
                 posts: state.posts.filter((p) => p.id !== action.postId),
             };
-        }
-        case TYPE_TEXT: {
-            return { ...state, postMessage: action.postMessage };
         }
         case SET_USER_PROFILE: {
             return { ...state, profile: action.profile };
@@ -89,11 +84,6 @@ export const addPosts = (post) => ({
 export const deletePost = (postId) => ({
     type: DELETE_POST,
     postId,
-});
-
-export const typeText = (text) => ({
-    type: TYPE_TEXT,
-    postMessage: text,
 });
 
 export const setUserProfile = (profile) => ({
@@ -187,10 +177,10 @@ export const requestAllPosts = () => {
 export const addUserPost = (post) => {
     return async (dispatch) => {
         dispatch(toggleIsAdding(true));
-        let response = await profileAPI.addPost(post);
+        let response = await profileAPI.addPost(post.newPost);
         if (!response.errorCode) {
-            const { dataValues: posts } = response;
-            dispatch(addPosts(posts));
+            const { dataValues: post } = response;
+            dispatch(addPosts(post));
         }
         dispatch(toggleIsAdding(false));
     };

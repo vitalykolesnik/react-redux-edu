@@ -5,11 +5,9 @@ import { getUserId } from '../../../redux/authSelectors';
 import {
     getIsAdding,
     getIsDeleting,
-    getPostMessage,
     getPosts,
 } from '../../../redux/profileSelectors';
 import {
-    typeText,
     addUserPost,
     deleteUserPost,
     requestUserPosts,
@@ -34,9 +32,8 @@ class MyPostsContainer extends React.PureComponent {
     //     return nextProps !== this.props || nextState !== this.state;
     // }
 
-    addUserPost() {
-        let { addUserPost, postMessage } = this.props;
-        addUserPost(postMessage);
+    addUserPost(post) {
+        this.props.addUserPost(post);
     }
 
     executeDeleteUserPost(id) {
@@ -61,7 +58,6 @@ const mapStateToProps = (state) => {
         isAdding: getIsAdding(state),
         isDeleting: getIsDeleting(state),
         posts: getPosts(state),
-        postMessage: getPostMessage(state),
     };
 };
 
@@ -69,7 +65,6 @@ export default compose(
     connect(mapStateToProps, {
         addUserPost,
         deleteUserPost,
-        typeText,
         requestUserPosts,
     })
 )(MyPostsContainer);

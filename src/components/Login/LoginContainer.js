@@ -1,53 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { login, signup, typeLogin, typePassword } from 'redux/authReduser';
+import { login, signup } from 'redux/authReduser';
 import Login from './Login';
 import { withAutoRedirectToMain } from 'components/hoc/withAutoRedirect';
-import {
-    getLoginInput,
-    getPasswordInput,
-    getValidateLoginMessage,
-    getValidatePasswordMessage,
-} from 'redux/authSelectors';
 
-class LoginContainer extends React.Component {
-    executeLogin = () => {
-        let { loginInput, passwordInput } = this.props;
-        this.props.login(loginInput, passwordInput);
+const LoginContainer = (props) => {
+    const executeLogin = (params) => {
+        const { login, password } = params;
+        props.login(login, password);
     };
 
-    executeSignup = () => {
-        let { loginInput, passwordInput } = this.props;
-        this.props.signup(loginInput, passwordInput);
-    };
-
-    render() {
-        return (
-            <Login
-                {...this.props}
-                login={this.executeLogin}
-                signup={this.executeSignup}
-            />
-        );
-    }
-}
-
-const mapStateToProps = (state) => {
-    return {
-        validateLoginMessage: getValidateLoginMessage(state),
-        validatePasswordMessage: getValidatePasswordMessage(state),
-        loginInput: getLoginInput(state),
-        passwordInput: getPasswordInput(state),
-    };
+    return <Login {...props} login={executeLogin} />;
 };
 
 export default compose(
-    connect(mapStateToProps, {
+    connect(null, {
         login,
         signup,
-        typeLogin,
-        typePassword,
     }),
     withAutoRedirectToMain
 )(LoginContainer);
