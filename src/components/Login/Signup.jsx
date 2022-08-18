@@ -1,50 +1,71 @@
 import React from 'react';
-import { Input } from 'components/other/FormsControls/FormsControl';
-import { Field, reduxForm } from 'redux-form';
-import { required } from 'utils/validators';
+import { useDispatch } from 'react-redux';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import s from './Login.module.css';
+import { signup } from 'redux/authReduser';
+import useRedirectComponent from '../hooks/useRedirectComponent';
 
-const SignupForm = (props) => {
+const SignupForm = () => {
+    const dispatch = useDispatch();
+    const formik = useFormik({
+        initialValues: {
+            login: '',
+            password: '',
+        },
+        validationSchema: Yup.object({
+            login: Yup.string()
+                .max(15, 'Must be 15 chars or less')
+                .required('Required'),
+            password: Yup.string()
+                .max(15, 'Must be 15 chars or less')
+                .required('Required'),
+        }),
+        onSubmit: () => {
+            dispatch(signup(formik.values.login, formik.values.password));
+        },
+    });
+
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
             <div>
-                <Field
+                <input
+                    id="login"
                     name="login"
                     placeholder="Enter login"
-                    component={Input}
-                    validate={[required]}
+                    value={formik.values.login}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                 />
             </div>
+            <div className={s.validation}>{formik.errors.login}</div>
             <div>
-                <Field
+                <input
+                    id="password"
                     name="password"
                     type="password"
                     placeholder="Enter password"
-                    component={Input}
-                    validate={[required]}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                 />
             </div>
-            <div className={s.validation}>{props.error}</div>
+            <div className={s.validation}>{formik.errors.password}</div>
             <div>
-                <button>Signup</button>
+                <button type="submit">Login</button>
             </div>
         </form>
     );
 };
 
-const SignupReduxForm = reduxForm({
-    form: 'signup',
-})(SignupForm);
-
-const Signup = ({ signup }) => {
-    const onSubmit = (formData) => {
-        signup(formData);
-    };
+const Signup = () => {
+    const redirect = useRedirectComponent();
 
     return (
         <div className={s.container}>
+            {redirect}
             <h3>Signup</h3>
-            <SignupReduxForm onSubmit={onSubmit} />
+            <SignupForm />
         </div>
     );
 };

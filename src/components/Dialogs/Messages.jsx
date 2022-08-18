@@ -1,46 +1,58 @@
-import { TextArea } from 'components/other/FormsControls/FormsControl';
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { maxLengthCreator, required } from 'utils/validators';
 import s from './Dialogs.module.css';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { sendMessage } from 'redux/dialogsReduser';
 import MessageItem from './MessageItem/MessageItem';
 
-const maxLength30 = maxLengthCreator(30);
+const MessageForm = () => {
+    const dispatch = useDispatch();
 
-const MessageForm = (props) => {
+    const formik = useFormik({
+        initialValues: {
+            newMessageText: '',
+        },
+        validationSchema: Yup.object({
+            newMessageText: Yup.string()
+                .max(15, 'Must be 15 chars or less')
+                .required('Required'),
+        }),
+        onSubmit: () => {
+            const message = { text: formik.values.newMessageText };
+            dispatch(sendMessage(message));
+        },
+    });
+
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
             <div className={s.inputMessage}>
-                <div>
-                    <Field
-                        name="messageText"
-                        placeholder="Enter your message..."
-                        component={TextArea}
-                        validate={[required, maxLength30]}
-                    />
-                </div>
-                <div>
-                    <button>Send message</button>
+                <textarea
+                    className={formik.errors.newMessageText ? s.errorArea : ''}
+                    id="newMessageText"
+                    name="newMessageText"
+                    placeholder="Enter your message..."
+                    value={formik.values.newMessageText}
+                    onBlur={formik.handleBlur}
+                    onChange={formik.handleChange}
+                />
+                <button type="submit">Send message</button>
+                <div className={formik.errors ? s.errorMessage : ''}>
+                    {formik.errors ? formik.errors.newMessageText : null}
                 </div>
             </div>
         </form>
     );
 };
 
-const MessageFormRedux = reduxForm({ form: 'addNewMessage' })(MessageForm);
-
-const Messages = ({ messages, sendMessage }) => {
+const Messages = ({ messages }) => {
     const messagesElements = messages.map((m) => (
         <MessageItem {...m} key={m.id} />
     ));
 
-    const onSendMessage = (text) => {
-        sendMessage(text);
-    };
-
     return (
         <div>
-            <MessageFormRedux onSubmit={onSendMessage} />
+            <MessageForm />
             <div className={s.messages}>{messagesElements}</div>
         </div>
     );

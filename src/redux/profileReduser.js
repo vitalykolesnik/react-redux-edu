@@ -210,7 +210,7 @@ export const requestAllPosts = () => {
 export const addUserPost = (post) => {
     return async (dispatch) => {
         dispatch(toggleIsAdding(true));
-        let response = await profileAPI.addPost(post.newPost);
+        let response = await profileAPI.addPost(post.newPostText);
         if (!response.errorCode) {
             const { dataValues } = response;
             dispatch(addPosts(dataValues));

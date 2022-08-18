@@ -1,30 +1,48 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { maxLengthCreator, required } from 'utils/validators';
 import s from './MyPosts.module.css';
+import * as Yup from 'yup';
 import Post from './Post/Post';
-import { TextArea } from './../../other/FormsControls/FormsControl';
-
-const maxLength30 = maxLengthCreator(30);
+import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { addUserPost } from 'redux/profileReduser';
 
 const NewPostForm = (props) => {
+    const dispatch = useDispatch();
+    const formik = useFormik({
+        initialValues: {
+            newPostText: '',
+        },
+        onSubmit: () => {
+            dispatch(addUserPost(formik.values));
+            formik.values.newPostText = '';
+        },
+        validationSchema: Yup.object({
+            newPostText: Yup.string()
+                .max(15, 'Must be 15 chars or less')
+                .required('Required'),
+        }),
+    });
+
     return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field
-                    name="newPost"
-                    placeholder="Enter your post..."
-                    component={TextArea}
-                    validate={[required, maxLength30]}
-                />
-            </div>
-            <div>
-                <button disabled={props.isAdding}>Add post</button>
+        <form onSubmit={formik.handleSubmit}>
+            <textarea
+                id="newPostText"
+                name="newPostText"
+                className={formik.errors.newPostText ? s.errorArea : ''}
+                placeholder="Enter your post..."
+                value={formik.values.newPostText}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+            />
+            <button type="submit" disabled={props.isAdding}>
+                Add post
+            </button>
+            <div className={formik.errors ? s.errorMessage : ''}>
+                {formik.errors ? formik.errors.newPostText : null}
             </div>
         </form>
     );
 };
-const NewPostFormRedux = reduxForm({ form: 'addNewPost' })(NewPostForm);
 
 const MyPosts = (props) => {
     const postElements = props.posts.map((p) => (
@@ -38,14 +56,10 @@ const MyPosts = (props) => {
         />
     ));
 
-    const onAddPost = (post) => {
-        props.addUserPost(post);
-    };
-
     return (
         <div className={s.myPosts}>
             <h3>My posts</h3>
-            {props.isOwner ? <NewPostFormRedux onSubmit={onAddPost} /> : ''}
+            {props.isOwner ? <NewPostForm /> : ''}
             <div className={s.posts}>{postElements}</div>
         </div>
     );

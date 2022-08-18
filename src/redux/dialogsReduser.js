@@ -24,7 +24,7 @@ const initialState = {
 const dialogsReduser = (state = initialState, action) => {
     switch (action.type) {
         case SEND_MESSAGE: {
-            const text = action.newMessage.messageText;
+            const text = action.message.text;
             const newMessage = {
                 id: state.messages.length + 1,
                 message: text,
@@ -42,9 +42,9 @@ const dialogsReduser = (state = initialState, action) => {
     }
 };
 
-export const sendMessage = (newMessage) => ({
+export const sendMessage = (message) => ({
     type: SEND_MESSAGE,
-    newMessage,
+    message,
 });
 
 export const setDialogs = (friends) => ({

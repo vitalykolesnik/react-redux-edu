@@ -10,11 +10,11 @@ import DialogsContainer from 'components/Dialogs/DialogsContainer';
 import NewsContainer from './components/News/NewsContainer';
 import UsersPageContainer from 'components/Users/UsersPageContainer';
 import ProfilePageContainer from 'components/Profile/ProfileContainer';
-import LoginContainer from 'components/Login/LoginContainer';
 import { initialize } from 'redux/appReduser';
 import Preloader from 'components/other/Preloader/Preloader';
 import { getInitialized } from 'redux/appSelector';
-import SignupContainer from 'components/Login/SignupContainer';
+import Signup from 'components/Login/Signup';
+import Login from 'components/Login/Login';
 
 class App extends React.Component {
     componentDidMount() {
@@ -29,12 +29,12 @@ class App extends React.Component {
                     <Navbar />
                     <div className="app-wrapper-content">
                         <Routes>
-                            <Route path="/" element={<LoginContainer />} />
-                            <Route path="/login" element={<LoginContainer />} />
                             <Route
-                                path="/signup"
-                                element={<SignupContainer />}
+                                path="/"
+                                element={<ProfilePageContainer />}
                             />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/signup" element={<Signup />} />
                             <Route
                                 path="/profile"
                                 element={<ProfilePageContainer />}
