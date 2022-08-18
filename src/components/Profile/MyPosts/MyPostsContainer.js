@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { getUserId } from '../../../redux/authSelectors';
 import {
     getIsAdding,
     getIsDeleting,
@@ -37,8 +36,7 @@ class MyPostsContainer extends React.PureComponent {
     }
 
     executeDeleteUserPost(id) {
-        let { deleteUserPost } = this.props;
-        deleteUserPost(id);
+        this.props.deleteUserPost(id);
     }
 
     render() {
@@ -54,10 +52,9 @@ class MyPostsContainer extends React.PureComponent {
 
 const mapStateToProps = (state) => {
     return {
-        userId: getUserId(state),
+        posts: getPosts(state),
         isAdding: getIsAdding(state),
         isDeleting: getIsDeleting(state),
-        posts: getPosts(state),
     };
 };
 

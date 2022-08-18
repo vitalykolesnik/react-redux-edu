@@ -34,7 +34,7 @@ export const authAPI = {
 };
 
 export const usersAPI = {
-    getUsers(currentPage = 1, pageSize = 10) {
+    getUsers(currentPage = 1, pageSize = 4) {
         return instance
             .get(`/users?page=${currentPage}&count=${pageSize}`)
             .then((res) => {
@@ -74,12 +74,12 @@ export const profileAPI = {
         });
     },
     getPosts(id) {
-        return instance.get(`/posts/${id}/all`).then((res) => {
+        return instance.get(`/posts/${id}`).then((res) => {
             return res.data;
         });
     },
     getAllPosts() {
-        return instance.get(`/posts/`).then((res) => {
+        return instance.get(`/posts`).then((res) => {
             return res.data;
         });
     },
@@ -93,7 +93,17 @@ export const profileAPI = {
             return res.data;
         });
     },
-
+    updatePhoto(image) {
+        const formData = new FormData();
+        formData.append('image', image);
+        return instance
+            .put(`/users/photo`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            })
+            .then((res) => {
+                return res.data;
+            });
+    },
     addPost(text) {
         return instance
             .post(`/posts`, {
@@ -105,6 +115,11 @@ export const profileAPI = {
     },
     deletePost(postId) {
         return instance.delete(`/posts/${postId}`).then((res) => {
+            return res.data;
+        });
+    },
+    likePost(postId) {
+        return instance.post(`/like/${postId}`).then((res) => {
             return res.data;
         });
     },

@@ -58,7 +58,7 @@ const Users = ({
                                 {...u}
                                 key={u.id}
                                 friends={friends}
-                                userId={userId}
+                                isOwner={userId !== u.id}
                                 isSubscribing={isSubscribing}
                                 subscribe={requestSubscribe}
                                 unsubscribe={requestUnsubscribe}

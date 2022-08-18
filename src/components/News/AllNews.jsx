@@ -4,6 +4,7 @@ import s from './News.module.css';
 
 const AllNews = ({ allPosts }) => {
     const newsElements = allPosts.map((p) => <News {...p} key={p.id} />);
+
     return (
         <div className={s.news}>
             <h3>News</h3>

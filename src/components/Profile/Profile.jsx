@@ -5,7 +5,15 @@ import MyPostsContainer from './MyPosts/MyPostsContainer';
 import Preloader from 'components/other/Preloader/Preloader';
 import ProfileStatusWithHooks from './ProfileInfo/ProfileStatusWithHooks';
 
-const Profile = ({ profileId, profile, status, updateStatus, isLoading }) => {
+const Profile = ({
+    profileId,
+    profile,
+    status,
+    updateStatus,
+    isLoading,
+    isOwner,
+    updatePhoto,
+}) => {
     return (
         <div className={s.profile}>
             <div>
@@ -14,12 +22,20 @@ const Profile = ({ profileId, profile, status, updateStatus, isLoading }) => {
                     <Preloader />
                 ) : (
                     <div>
-                        <ProfileInfo {...profile} />
+                        <ProfileInfo
+                            {...profile}
+                            isOwner={isOwner}
+                            updatePhoto={updatePhoto}
+                        />
                         <ProfileStatusWithHooks
                             status={status}
+                            isOwner={isOwner}
                             updateStatus={updateStatus}
                         />
-                        <MyPostsContainer profileId={profileId} />
+                        <MyPostsContainer
+                            profileId={profileId}
+                            isOwner={isOwner}
+                        />
                     </div>
                 )}
             </div>

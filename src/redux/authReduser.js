@@ -83,6 +83,12 @@ export const signup = (login, password) => {
         let response = await authAPI.signup(login, password);
         if (!response.errorCode) {
             dispatch(getAuthData());
+        } else {
+            dispatch(
+                stopSubmit('signup', {
+                    _error: response.errors.login,
+                })
+            );
         }
     };
 };

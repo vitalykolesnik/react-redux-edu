@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import s from './ProfileStatus.module.css';
 
-const ProfileStatusWithHooks = ({ status, updateStatus }) => {
+const ProfileStatusWithHooks = ({ status, updateStatus, isOwner }) => {
     const [editMode, setEditMode] = useState(false);
     const [statusState, setStatusState] = useState(status);
 
@@ -24,7 +24,7 @@ const ProfileStatusWithHooks = ({ status, updateStatus }) => {
 
     return (
         <div className={s.profileStatus}>
-            {editMode ? (
+            {isOwner && editMode ? (
                 <input
                     autoFocus={true}
                     onChange={onStatusChange}

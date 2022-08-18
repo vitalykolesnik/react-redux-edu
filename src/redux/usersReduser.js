@@ -15,7 +15,7 @@ const initialState = {
     isSubscribing: [],
     friends: [],
     currentPage: 1,
-    pageSize: 6,
+    pageSize: 4,
     totalUsersCount: 0,
     totalFriendsCount: 0,
     isLoading: false,
@@ -131,12 +131,18 @@ export const requestUsers = (currentPage, pageSize) => {
         if (!response.errorCode) {
             let { users, totalCount } = response;
             dispatch(setUsers(users));
-            dispatch(requestFriends());
             dispatch(setTotalUsersCount(totalCount));
         }
         dispatch(togglePreloader(false));
     };
 }; // thunkCreator -> thunk -> callback
+
+export const requestUsersPage = (currentPage, pageSize) => {
+    return async (dispatch) => {
+        dispatch(setCurrentPage(currentPage));
+        dispatch(requestUsers(currentPage, pageSize));
+    };
+};
 
 export const requestFriends = () => {
     return async (dispatch) => {

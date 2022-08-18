@@ -20,7 +20,7 @@ const User = (props) => {
                 </NavLink>
                 <div className={u.userLogin}>{props.name}</div>
                 <div>Status: {props.status}</div>
-                {props.userId !== props.id ? (
+                {props.isOwner ? (
                     <div>
                         {props.friends.some((f) => f.id === props.id) ? (
                             <button
@@ -43,7 +43,7 @@ const User = (props) => {
                         )}
                     </div>
                 ) : (
-                    <div>You profile</div>
+                    ''
                 )}
             </div>
             <div>Info: {props.description}</div>

@@ -31,10 +31,10 @@ const MyPosts = (props) => {
         <Post
             {...p}
             key={p.id}
+            likes={p.likes}
             isDeleting={props.isDeleting}
             onDeleteUserPost={props.deleteUserPost}
-            profileId={props.profileId}
-            userId={props.userId}
+            isOwner={props.isOwner}
         />
     ));
 
@@ -45,11 +45,7 @@ const MyPosts = (props) => {
     return (
         <div className={s.myPosts}>
             <h3>My posts</h3>
-            {props.userId === +props.profileId ? (
-                <NewPostFormRedux onSubmit={onAddPost} />
-            ) : (
-                ''
-            )}
+            {props.isOwner ? <NewPostFormRedux onSubmit={onAddPost} /> : ''}
             <div className={s.posts}>{postElements}</div>
         </div>
     );

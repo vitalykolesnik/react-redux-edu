@@ -4,7 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import { required } from 'utils/validators';
 import s from './Login.module.css';
 
-const LoginForm = (props) => {
+const SignupForm = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -26,27 +26,27 @@ const LoginForm = (props) => {
             </div>
             <div className={s.validation}>{props.error}</div>
             <div>
-                <button>Login</button>
+                <button>Signup</button>
             </div>
         </form>
     );
 };
 
-const LoginReduxForm = reduxForm({
-    form: 'login',
-})(LoginForm);
+const SignupReduxForm = reduxForm({
+    form: 'signup',
+})(SignupForm);
 
-const Login = ({ login, signup }) => {
+const Signup = ({ signup }) => {
     const onSubmit = (formData) => {
-        login(formData);
+        signup(formData);
     };
 
     return (
         <div className={s.container}>
-            <h3>Login</h3>
-            <LoginReduxForm onSubmit={onSubmit} />
+            <h3>Signup</h3>
+            <SignupReduxForm onSubmit={onSubmit} />
         </div>
     );
 };
 
-export default Login;
+export default Signup;

@@ -6,6 +6,7 @@ const SET_USER_PROFILE = 'PROFILE/SET_USER_PROFILE';
 const SET_USER_POSTS = 'PROFILE/SET_USER_POSTS';
 const SET_ALL_POSTS = 'PROFILE/SET_ALL_POSTS';
 const SET_USER_STATUS = 'PROFILE/SET_USER_STATUS';
+const SET_USER_PHOTO = 'PROFILE/SET_USER_PHOTO';
 const TOGGLE_PRELOADER = 'PROFILE/TOGGLE_PRELOADER';
 const TOGGLE_ADD_STATUS = 'PROFILE/TOGGLE_ADD_STATUS';
 const TOGGLE_DELETE_STATUS = 'PROFILE/TOGGLE_DELETE_STATUS';
@@ -26,6 +27,7 @@ const profileReduser = (state = initialState, action) => {
         case ADD_POST: {
             const post = action.post;
             if (post) {
+                post.likes = [];
                 return {
                     ...state,
                     posts: [...state.posts, post],
@@ -44,6 +46,12 @@ const profileReduser = (state = initialState, action) => {
         }
         case SET_USER_POSTS: {
             return { ...state, posts: action.posts };
+        }
+        case SET_USER_PHOTO: {
+            return {
+                ...state,
+                profile: { ...profileAPI, image: action.image },
+            };
         }
         case SET_ALL_POSTS: {
             return { ...state, allPosts: action.allPosts };
@@ -94,6 +102,11 @@ export const setUserProfile = (profile) => ({
 export const setUserPosts = (posts) => ({
     type: SET_USER_POSTS,
     posts,
+});
+
+export const setUserPhoto = (image) => ({
+    type: SET_USER_PHOTO,
+    image,
 });
 
 export const setAllPosts = (allPosts) => ({
@@ -154,12 +167,32 @@ export const updateUserStatus = (status) => {
     };
 };
 
+export const updateUserPhoto = (file) => {
+    return async (dispatch) => {
+        let response = await profileAPI.updatePhoto(file);
+        if (!response.errorCode) {
+            const { image } = response;
+            dispatch(setUserPhoto(image));
+        }
+    };
+};
+
 export const requestUserPosts = (profileId) => {
     return async (dispatch) => {
         let response = await profileAPI.getPosts(profileId);
         if (!response.errorCode) {
             const { posts } = response;
             dispatch(setUserPosts(posts));
+        }
+    };
+};
+
+export const requestLikePost = (id, profileId) => {
+    return async (dispatch) => {
+        let response = await profileAPI.likePost(id);
+        if (!response.errorCode) {
+            dispatch(requestAllPosts());
+            dispatch(requestUserPosts(profileId));
         }
     };
 };
@@ -179,8 +212,8 @@ export const addUserPost = (post) => {
         dispatch(toggleIsAdding(true));
         let response = await profileAPI.addPost(post.newPost);
         if (!response.errorCode) {
-            const { dataValues: post } = response;
-            dispatch(addPosts(post));
+            const { dataValues } = response;
+            dispatch(addPosts(dataValues));
         }
         dispatch(toggleIsAdding(false));
     };

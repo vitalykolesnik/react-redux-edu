@@ -1,22 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { login } from 'redux/authReduser';
-import Login from './Login';
+import { signup } from 'redux/authReduser';
+import Signup from './Signup';
 import { withAutoRedirectToMain } from 'components/hoc/withAutoRedirect';
 
-const LoginContainer = (props) => {
-    const executeLogin = (params) => {
+const SignupContainer = (props) => {
+    const executeSignup = (params) => {
         const { login, password } = params;
-        props.login(login, password);
+        props.signup(login, password);
     };
 
-    return <Login {...props} login={executeLogin} />;
+    return <Signup {...props} signup={executeSignup} />;
 };
 
 export default compose(
     connect(null, {
-        login,
+        signup,
     }),
     withAutoRedirectToMain
-)(LoginContainer);
+)(SignupContainer);

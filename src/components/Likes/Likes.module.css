@@ -1,0 +1,14 @@
+.likes {
+    font-size: 1em;
+    text-align: end;
+}
+
+.likes .itemLikesCount {
+    padding: 0.5em;
+    align-self: flex-end;
+}
+
+.likes .itemLikesCount:hover {
+    cursor: pointer;
+    color: red;
+}

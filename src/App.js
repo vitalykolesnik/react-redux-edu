@@ -14,6 +14,7 @@ import LoginContainer from 'components/Login/LoginContainer';
 import { initialize } from 'redux/appReduser';
 import Preloader from 'components/other/Preloader/Preloader';
 import { getInitialized } from 'redux/appSelector';
+import SignupContainer from 'components/Login/SignupContainer';
 
 class App extends React.Component {
     componentDidMount() {
@@ -30,6 +31,10 @@ class App extends React.Component {
                         <Routes>
                             <Route path="/" element={<LoginContainer />} />
                             <Route path="/login" element={<LoginContainer />} />
+                            <Route
+                                path="/signup"
+                                element={<SignupContainer />}
+                            />
                             <Route
                                 path="/profile"
                                 element={<ProfilePageContainer />}

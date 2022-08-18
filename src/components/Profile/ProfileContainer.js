@@ -7,6 +7,7 @@ import {
     requestUserProfile,
     requestUserStatus,
     updateUserStatus,
+    updateUserPhoto,
 } from './../../redux/profileReduser';
 import Profile from './Profile';
 import { withAuthRedirect } from 'components/hoc/withAuthRedirect';
@@ -16,6 +17,7 @@ import {
     getStatus,
     getIsLoading,
 } from './../../redux/profileSelectors';
+import { getUserId } from 'redux/authSelectors';
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
@@ -36,10 +38,12 @@ class ProfileContainer extends React.Component {
         return (
             <Profile
                 profile={this.props.profile}
-                isLoading={this.props.isLoading}
-                profileId={this.props.profileId}
                 status={this.props.status}
+                profileId={this.props.profileId}
+                isLoading={this.props.isLoading}
+                isOwner={this.props.userId === this.props.profileId}
                 updateStatus={this.props.updateUserStatus}
+                updatePhoto={this.props.updateUserPhoto}
             />
         );
     }
@@ -50,6 +54,7 @@ const mapStateToProps = (state) => {
         profile: getProfile(state),
         status: getStatus(state),
         isLoading: getIsLoading(state),
+        userId: getUserId(state),
     };
 };
 
@@ -73,5 +78,6 @@ export default compose(
         requestUserStatus,
         requestUserPosts,
         updateUserStatus,
+        updateUserPhoto,
     })
 )(ProfileContainer);

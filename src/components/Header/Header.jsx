@@ -20,7 +20,8 @@ const Header = ({ userName, isAuth, logout }) => {
                 ) : (
                     <div>
                         <div>
-                            <NavLink to="/login">Login or signup</NavLink>
+                            <NavLink to="/login">Login</NavLink><>{" "}</>
+                            <NavLink to="/signup">Signup</NavLink>
                         </div>
                     </div>
                 )}
