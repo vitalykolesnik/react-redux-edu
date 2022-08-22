@@ -5,11 +5,10 @@ import { getAllPosts } from 'redux/profileSelectors';
 import { requestAllPosts } from './../../redux/profileReduser';
 import AllNews from './AllNews';
 
-class NewsContainer extends React.Component {
+class NewsContainer extends React.PureComponent {
     componentDidMount() {
         this.props.requestAllPosts();
     }
-
     render() {
         return <AllNews allPosts={this.props.allPosts} />;
     }

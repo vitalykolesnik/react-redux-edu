@@ -14,10 +14,16 @@ const ProfileInfo = ({ name, image, description, isOwner, updatePhoto }) => {
             <div className={s.descriptionBlock}>
                 <h3>{name}</h3>
                 <img src={setAvatar(image)} alt="ooops" />
-                <div>
-                    {' '}
+                <div className={s.selectAvatar}>
                     {isOwner && (
-                        <input type={'file'} onChange={onMainPhotoSelected} />
+                        <div>
+                            <input
+                                id="ava"
+                                name="ava"
+                                type={'file'}
+                                onChange={onMainPhotoSelected}
+                            />
+                        </div>
                     )}
                 </div>
                 <div>{description}</div>

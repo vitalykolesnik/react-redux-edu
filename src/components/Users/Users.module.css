@@ -4,17 +4,9 @@
     font-size: 1.2em;
 }
 
-.pagination:hover {
-    cursor: pointer;
-}
-
 .usersPage {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
-}
-
-.selectedPage {
-    font-weight: bold;
-    font-size: 1.2em;
+    flex-grow: 0;
+    justify-content: center;
 }

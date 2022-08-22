@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { connect } from 'react-redux';
-import HeaderContainer from './components/Header/HeaderContainer';
 import Navbar from './components/Navbar/Navbar';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
@@ -15,6 +14,7 @@ import Preloader from 'components/other/Preloader/Preloader';
 import { getInitialized } from 'redux/appSelector';
 import Signup from 'components/Login/Signup';
 import Login from 'components/Login/Login';
+import Header from 'components/Header/Header';
 
 class App extends React.Component {
     componentDidMount() {
@@ -25,7 +25,7 @@ class App extends React.Component {
         return this.props.initialized ? (
             <BrowserRouter>
                 <div className="app-wrapper">
-                    <HeaderContainer />
+                    <Header />
                     <Navbar />
                     <div className="app-wrapper-content">
                         <Routes>

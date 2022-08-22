@@ -1,6 +1,8 @@
 .likes {
+    position: absolute;
+    right: 5px;
+    top: 5px;
     font-size: 1em;
-    text-align: end;
 }
 
 .likes .itemLikesCount {

@@ -104,10 +104,18 @@ export const profileAPI = {
                 return res.data;
             });
     },
-    addPost(text) {
+    addPost(payload) {
+        const { text, image } = payload;
+        const formData = new FormData();
+        if (image) {
+            for (const img of image) {
+                formData.append('image', img);
+            }
+        }
+        formData.append('text', text);
         return instance
-            .post(`/posts`, {
-                text,
+            .post(`/posts`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
             })
             .then((res) => {
                 return res.data;

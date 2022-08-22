@@ -19,7 +19,7 @@ import {
 } from './../../redux/profileSelectors';
 import { getUserId } from 'redux/authSelectors';
 
-class ProfileContainer extends React.Component {
+class ProfileContainer extends React.PureComponent {
     componentDidMount() {
         const { profileId, requestUserProfile, requestUserStatus } = this.props;
         requestUserProfile(profileId);

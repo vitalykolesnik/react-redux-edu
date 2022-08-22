@@ -1,4 +1,4 @@
-.dialogs {
+.dialogsContainer {
     display: flex;
     flex-flow: column nowrap;
     text-align: center;
@@ -9,51 +9,4 @@
     display: flex;
     flex-flow: row nowrap;
     grid-area: dial;
-}
-
-.messages {
-    display: flex;
-    flex-flow: column nowrap;
-    grid-area: mess;
-    padding: 1em 0;
-}
-
-.dialogs .inputMessage{
-    height: 100%;
-    width: 100%;
-    grid-area: inp;
-}
-
-.inputMessage textarea {
-    width: 100%;
-    height: 3.5em;
-    padding: 1em;
-    font-size: 1em;
-}
-
-.inputMessage  button {
-    width: 100%;
-    height: 30px;
-    color: white;
-    background-color: rgba(76, 0, 255, 0.603);
-    text-shadow: 2px 2px 5px black;
-    border: 1px solid (0,0,0,0.0);
-    border-radius: 2em;
-}
-
-.inputMessage button:hover {
-    cursor: pointer;
-    color: blue;
-    background-color: white;
-    border-radius: 2em;
-}
-
-.inputMessage .errorMessage {
-    text-align: start;
-    color: red
-}
-
-.inputMessage .errorArea {
-    border: 1px solid red ;
-    color: red;
 }

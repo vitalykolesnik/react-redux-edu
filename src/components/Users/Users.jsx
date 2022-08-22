@@ -2,6 +2,7 @@ import React from 'react';
 import s from './Users.module.css';
 import User from './User/User';
 import Preloader from '../other/Preloader/Preloader';
+import Paginator from './Paginator';
 
 const Users = ({
     users,
@@ -11,60 +12,28 @@ const Users = ({
     requestUnsubscribe,
     isLoading,
     isSubscribing,
-    totalUsersCount,
-    pageSize,
-    setCurrentPage,
-    currentPage,
 }) => {
-    let pageCount = Math.ceil(totalUsersCount / pageSize);
-
-    let pages = [];
-    for (let i = 1; i <= pageCount; i++) {
-        pages.push(i);
-    }
-
-    let onPageChanged = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
+    const usersList = users.map((u) => (
+        <User
+            {...u}
+            key={u.id}
+            friends={friends}
+            isOwner={userId !== u.id}
+            isSubscribing={isSubscribing}
+            subscribe={requestSubscribe}
+            unsubscribe={requestUnsubscribe}
+        />
+    ));
 
     return (
         <div className={s.container}>
-            <div>
-                <h3>Users</h3>
-            </div>
+            <h3>Users</h3>
             {isLoading ? (
                 <Preloader />
             ) : (
                 <div>
-                    <div className={s.pagination}>
-                        {pages.map((p, i) => {
-                            return (
-                                <span
-                                    className={
-                                        currentPage === p ? s.selectedPage : ''
-                                    }
-                                    onClick={() => onPageChanged(p)}
-                                    key={i}
-                                >
-                                    {' '}
-                                    {p}{' '}
-                                </span>
-                            );
-                        })}
-                    </div>
-                    <div className={s.usersPage}>
-                        {users.map((u) => (
-                            <User
-                                {...u}
-                                key={u.id}
-                                friends={friends}
-                                isOwner={userId !== u.id}
-                                isSubscribing={isSubscribing}
-                                subscribe={requestSubscribe}
-                                unsubscribe={requestUnsubscribe}
-                            />
-                        ))}
-                    </div>
+                    <Paginator />
+                    <div className={s.usersPage}>{usersList}</div>
                 </div>
             )}
         </div>

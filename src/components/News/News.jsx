@@ -1,18 +1,26 @@
 import React from 'react';
 import s from './News.module.css';
-import incognito from './../../assets/image/user_icon.png';
 import Likes from 'components/Likes/Likes';
+import { setAvatar } from 'utils/setAvatar';
 
-const News = ({ id, profile, text, likes }) => {
+const News = ({ id, profile, text, images, likes }) => {
+    const imagesAlbum = images.map((i) => {
+        return <img key={i.id} src={i.image} alt="Ooops" />;
+    });
+
     return (
         <div className={s.item}>
             <div className={s.itemInfo}>
                 <div className={s.itemAuthor}>
-                    {' '}
-                    <img src={profile.image || incognito} alt="Ooops" />
-                    {profile.name}
+                    <div className={s.avatar}>
+                        <img src={setAvatar(profile.image)} alt="Ooops" />
+                    </div>
+                    <div>{profile.name}</div>
                 </div>
                 <div className={s.itemMessage}>{text}</div>
+                <div className={s.imagesAlbum}>
+                    {images.length ? imagesAlbum : <></>}
+                </div>
             </div>
             <Likes postId={id} likes={likes} profileId={profile.id} />
         </div>

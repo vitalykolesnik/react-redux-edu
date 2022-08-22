@@ -4,24 +4,32 @@ import s from './Post.module.css';
 
 const Post = ({
     id,
-    isOwner,
     text,
+    images,
     isDeleting,
     onDeleteUserPost,
     likes,
+    isOwner,
     profileId,
 }) => {
     const onDeletePost = () => {
         onDeleteUserPost(id);
     };
 
+    const imagesAlbum = () => {
+        return images ? (
+            images.map((i) => {
+                return <img key={i.id} src={i.image} alt="Ooops" />;
+            })
+        ) : (
+            <></>
+        );
+    };
+
     return (
         <div className={s.item}>
             <div className={s.itemInfo}>
-                <img
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpyQ3Ez7fGNDmuULcJxaGc3CxZ5ohwAoFeGQ&usqp=CAU"
-                    alt="Ooops"
-                />
+                <div className={s.imagesAlbum}>{imagesAlbum()}</div>
                 <div className={s.itemMessage}>{text}</div>
             </div>
             <Likes postId={id} profileId={profileId} likes={likes} />

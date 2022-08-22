@@ -1,10 +1,9 @@
 import React from 'react';
-import s from './Dialogs.module.css';
+import s from './Messages.module.css';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import { sendMessage } from 'redux/dialogsReduser';
-import MessageItem from './MessageItem/MessageItem';
 
 const MessageForm = () => {
     const dispatch = useDispatch();
@@ -15,7 +14,7 @@ const MessageForm = () => {
         },
         validationSchema: Yup.object({
             newMessageText: Yup.string()
-                .max(15, 'Must be 15 chars or less')
+                .max(100, 'Must be 100 chars or less')
                 .required('Required'),
         }),
         onSubmit: () => {
@@ -45,17 +44,4 @@ const MessageForm = () => {
     );
 };
 
-const Messages = ({ messages }) => {
-    const messagesElements = messages.map((m) => (
-        <MessageItem {...m} key={m.id} />
-    ));
-
-    return (
-        <div>
-            <MessageForm />
-            <div className={s.messages}>{messagesElements}</div>
-        </div>
-    );
-};
-
-export default Messages;
+export default MessageForm;

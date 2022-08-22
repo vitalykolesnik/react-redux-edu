@@ -1,4 +1,5 @@
 import React from 'react';
+import s from './Dialogs.module.css';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { getMessages } from 'redux/dialogsSelectors';
@@ -7,6 +8,7 @@ import { requestDialogs, sendMessage } from '../../redux/dialogsReduser';
 import Dialogs from './Dialogs';
 import { withAuthRedirect } from 'components/hoc/withAuthRedirect';
 import { requestFriends } from 'redux/usersReduser';
+import Messages from './Messages/Messages';
 
 class DialogsContainer extends React.Component {
     componentDidMount() {
@@ -15,7 +17,13 @@ class DialogsContainer extends React.Component {
     }
 
     render() {
-        return <Dialogs {...this.props} />;
+        return (
+            <div className={s.dialogsContainer}>
+                <h3>Messages</h3>
+                <Dialogs friends={this.props.friends} />
+                <Messages messages={this.props.messages} />
+            </div>
+        );
     }
 }
 

@@ -5,17 +5,18 @@ const UNSUSBSCRIBE = 'USERS/UNSUSBSCRIBE';
 const SET_USERS = 'USERS/SET_USERS';
 const SET_FRIENDS = 'USERS/SET_FRIENDS';
 const SET_CURRENT_PAGE = 'USERS/SET_CURRENT_PAGE';
+const SET_PAGE_SIZE = 'USERS/SET_PAGE_SIZE';
 const SET_TOTAL_USERS_COUNT = 'USERS/SET_TOTAL_USERS_COUNT';
 const SET_TOTAL_FRIENDS_COUNT = 'USERS/SET_TOTAL_FRIENDS_COUNT';
 const TOGGLE_PRELOADER = 'USERS/TOGGLE_PRELOADER';
 const TOGGLE_SUBSCRIBING = 'USERS/TOGGLE_SUBSCRIBING';
 
 const initialState = {
+    currentPage: 1,
+    pageSize: 6,
     users: [],
     isSubscribing: [],
     friends: [],
-    currentPage: 1,
-    pageSize: 4,
     totalUsersCount: 0,
     totalFriendsCount: 0,
     isLoading: false,
@@ -51,6 +52,12 @@ const usersReduser = (state = initialState, action) => {
             return {
                 ...state,
                 currentPage: action.currentPage,
+            };
+        }
+        case SET_PAGE_SIZE: {
+            return {
+                ...state,
+                pageSize: action.pageSize,
             };
         }
         case SET_TOTAL_USERS_COUNT: {
@@ -98,9 +105,14 @@ export const setFriends = (friends) => ({
     friends,
 });
 
-export const setCurrentPage = (currentPage) => ({
+export const setCurrentUsersPage = (currentPage) => ({
     type: SET_CURRENT_PAGE,
     currentPage,
+});
+
+export const setPageSize = (pageSize) => ({
+    type: SET_PAGE_SIZE,
+    pageSize,
 });
 
 export const setTotalFriendsCount = (totalCount) => ({
@@ -139,7 +151,7 @@ export const requestUsers = (currentPage, pageSize) => {
 
 export const requestUsersPage = (currentPage, pageSize) => {
     return async (dispatch) => {
-        dispatch(setCurrentPage(currentPage));
+        dispatch(setCurrentUsersPage(currentPage));
         dispatch(requestUsers(currentPage, pageSize));
     };
 };

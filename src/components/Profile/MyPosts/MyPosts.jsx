@@ -11,15 +11,14 @@ const NewPostForm = (props) => {
     const formik = useFormik({
         initialValues: {
             newPostText: '',
+            img: null,
         },
         onSubmit: () => {
             dispatch(addUserPost(formik.values));
             formik.values.newPostText = '';
         },
         validationSchema: Yup.object({
-            newPostText: Yup.string()
-                .max(15, 'Must be 15 chars or less')
-                .required('Required'),
+            newPostText: Yup.string().max(100, 'Must be 100 chars or less'),
         }),
     });
 
@@ -34,35 +33,45 @@ const NewPostForm = (props) => {
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
             />
+            <input
+                name="image"
+                type="file"
+                placeholder="Place your image..."
+                multiple
+                onChange={(e) => {
+                    formik.values.img = e.currentTarget.files;
+                }}
+            />
             <button type="submit" disabled={props.isAdding}>
                 Add post
             </button>
             <div className={formik.errors ? s.errorMessage : ''}>
-                {formik.errors ? formik.errors.newPostText : null}
+                {formik.errors ? formik.errors.newPostText : ''}
             </div>
         </form>
     );
 };
 
-const MyPosts = (props) => {
-    const postElements = props.posts.map((p) => (
+const MyPosts = ({ posts, isOwner, isDeleting, deleteUserPost }) => {
+    const postElements = posts.map((p) => (
         <Post
             {...p}
             key={p.id}
             likes={p.likes}
-            isDeleting={props.isDeleting}
-            onDeleteUserPost={props.deleteUserPost}
-            isOwner={props.isOwner}
+            images={p.images}
+            isDeleting={isDeleting}
+            onDeleteUserPost={deleteUserPost}
+            isOwner={isOwner}
         />
     ));
 
     return (
         <div className={s.myPosts}>
             <h3>My posts</h3>
-            {props.isOwner ? <NewPostForm /> : ''}
+            {isOwner ? <NewPostForm /> : ''}
             <div className={s.posts}>{postElements}</div>
         </div>
     );
 };
 
-export default MyPosts;
+export default React.memo(MyPosts);

@@ -8,10 +8,8 @@ const DialogItem = ({ id, name, image }) => {
     return (
         <div className={s.dialogItem}>
             <NavLink to={path}>
-                <div>
-                    <img src={setAvatar(image)} alt="Oooops" />
-                    <div>{name}</div>
-                </div>
+                <img src={setAvatar(image)} alt="Oooops" />
+                <div>{name}</div>
             </NavLink>
         </div>
     );

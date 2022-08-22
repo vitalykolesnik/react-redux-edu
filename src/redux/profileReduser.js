@@ -25,9 +25,14 @@ const initialState = {
 const profileReduser = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST: {
+            debugger;
             const post = action.post;
             if (post) {
                 post.likes = [];
+                post.images = [];
+                if (action.images) {
+                    post.images = [...action.images];
+                }
                 return {
                     ...state,
                     posts: [...state.posts, post],
@@ -84,9 +89,10 @@ const profileReduser = (state = initialState, action) => {
     }
 };
 
-export const addPosts = (post) => ({
+export const addPosts = (post, images) => ({
     type: ADD_POST,
     post,
+    images,
 });
 
 export const deletePost = (postId) => ({
@@ -170,6 +176,7 @@ export const updateUserStatus = (status) => {
 export const updateUserPhoto = (file) => {
     return async (dispatch) => {
         let response = await profileAPI.updatePhoto(file);
+        debugger;
         if (!response.errorCode) {
             const { image } = response;
             dispatch(setUserPhoto(image));
@@ -210,10 +217,12 @@ export const requestAllPosts = () => {
 export const addUserPost = (post) => {
     return async (dispatch) => {
         dispatch(toggleIsAdding(true));
-        let response = await profileAPI.addPost(post.newPostText);
+        const { newPostText, img } = post;
+        const payload = { text: newPostText, image: img };
+        let response = await profileAPI.addPost(payload);
         if (!response.errorCode) {
-            const { dataValues } = response;
-            dispatch(addPosts(dataValues));
+            const { dataValues, image } = response;
+            dispatch(addPosts(dataValues, image));
         }
         dispatch(toggleIsAdding(false));
     };

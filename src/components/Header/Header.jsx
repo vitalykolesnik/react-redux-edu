@@ -2,25 +2,39 @@ import React from 'react';
 import s from './Header.module.css';
 import kittenHeader from './../../assets/image/kitten-header.png';
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserId, getUserName } from '../../redux/authSelectors';
+import { logout } from '../../redux/authReduser';
 
-const Header = ({ userName, isAuth, logout }) => {
+const Header = () => {
+    const userName = useSelector((state) => getUserName(state));
+    const isAuth = useSelector((state) => getUserId(state));
+    const dispatch = useDispatch();
+
+    const onLogout = () => {
+        dispatch(logout());
+    };
+
     return (
         <header className={s.header}>
             <div className={s.avatar}>
                 <img src={kittenHeader} alt="Ooops" />
             </div>
             <div className={s.loginBlock}>
-                <h4>Hello, {userName}!</h4>
+                <div>
+                    <h4>Hello, {userName}! </h4>
+                </div>
                 {isAuth ? (
-                    <div>
-                        <div>
-                            <button onClick={logout}>Logout</button>
-                        </div>
+                    <div className={s.loginItem}>
+                        <NavLink to="/login" onClick={onLogout}>
+                            Logout
+                        </NavLink>
                     </div>
                 ) : (
                     <div>
-                        <div>
-                            <NavLink to="/login">Login</NavLink><>{" "}</>
+                        <div className={s.loginItem}>
+                            <NavLink to="/login">Login</NavLink>
+                            <> </>
                             <NavLink to="/signup">Signup</NavLink>
                         </div>
                     </div>
