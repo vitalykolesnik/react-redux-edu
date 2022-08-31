@@ -3,18 +3,16 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Navbar from './components/Navbar/Navbar';
-import Music from './components/Music/Music';
-import Settings from './components/Settings/Settings';
-import DialogsContainer from 'components/Dialogs/DialogsContainer';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 import NewsContainer from './components/News/NewsContainer';
-import UsersPageContainer from 'components/Users/UsersPageContainer';
-import ProfilePageContainer from 'components/Profile/ProfileContainer';
-import { initialize } from 'redux/appReduser';
-import Preloader from 'components/other/Preloader/Preloader';
-import { getInitialized } from 'redux/appSelector';
-import Signup from 'components/Login/Signup';
-import Login from 'components/Login/Login';
-import Header from 'components/Header/Header';
+import UsersPageContainer from './components/Users/UsersPageContainer';
+import ProfilePageContainer from './components/Profile/ProfileContainer';
+import { initialize } from './redux/appReduser';
+import Preloader from './components/other/Preloader/Preloader';
+import { getInitialized } from './redux/appSelector';
+import Signup from './components/Login/Signup';
+import Login from './components/Login/Login';
+import Header from './components/Header/Header';
 
 class App extends React.Component {
     componentDidMount() {
@@ -48,8 +46,6 @@ class App extends React.Component {
                                 element={<DialogsContainer />}
                             />
                             <Route path="/news" element={<NewsContainer />} />
-                            <Route path="/music" element={<Music />} />
-                            <Route path="/settings" element={<Settings />} />
                             <Route
                                 path="/users"
                                 element={<UsersPageContainer />}

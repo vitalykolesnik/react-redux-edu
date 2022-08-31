@@ -13,7 +13,7 @@
     border-radius: 1em;
 }
 
-.inputMessage textarea {
+.inputMessage input {
     width: 100%;
     margin: 10px 0;
     height: 60px;
@@ -27,9 +27,10 @@
     height: 30px;
     color: white;
     background-color: rgba(76, 0, 255, 0.603);
-    text-shadow: 2px 2px 5px black;
     border: 1px solid (0,0,0,0.0);
     border-radius: 2em;
+    text-shadow: 2px 2px 5px black;
+    box-shadow: 2px 2px 5px rgb(66, 66, 66);
 }
 
 .inputMessage button:hover {

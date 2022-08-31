@@ -33,20 +33,24 @@
     align-items: center;
 }
 
-.item  > button {
-    width: 50px;
-    right: 15px;
+.item  button {
+    position: absolute;
+    width: 2em;
+    height: 2em;
+    color: white;
+    border: 1px solid (0,0,0,0.0);
+    border-radius: 2em;
+    right: 27px;
     bottom: 10px;
     padding: 0em;
-    position: absolute;
-    color: grey;
-    background-color: aliceblue;
-    opacity: 20%;
+    opacity: 10%;
+    text-shadow: 2px 2px 5px black;
 }
 
-.item  > button:hover {
+.item  button:hover {
     color: red;
     opacity: 100%;
+    cursor: pointer;
 }
 
 .item .itemMessage {

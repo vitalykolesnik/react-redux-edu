@@ -2,6 +2,7 @@
     text-align: center;
     height: 1.5em;
     margin-top: 1em;
+    box-shadow: 2px 2px 5px rgb(66, 66, 66);
     /* background-color: blue; */
 }
 
@@ -19,6 +20,5 @@
     text-align: center;
     font-size: 1em;
     border: 2px solid grey;
-    background-color: blueviolet;
-    color: white
+    background-color: white;
 }

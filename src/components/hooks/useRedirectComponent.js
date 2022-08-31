@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { getIsAuth } from 'redux/authSelectors';
+import { getIsAuth } from '../../redux/authSelectors';
 
 const useRedirectComponent = () => {
     const isAuth = useSelector((state) => getIsAuth(state));
