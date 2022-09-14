@@ -2,8 +2,7 @@ import React from 'react';
 import Post from './Post/Post';
 import { PostType } from 'components/types/types';
 
-import s from './MyPosts.module.css';
-import { NewPostForm } from './NewPostForm';
+import { Typography } from '@mui/material';
 
 type PropsType = {
     posts: Array<PostType>
@@ -24,11 +23,10 @@ const MyPosts: React.FC<PropsType> = ({ posts, isOwner, isDeleting }) => {
     ));
 
     return (
-        <div className={s.myPosts}>
-            <h3>My posts</h3>
-            {isOwner ? <NewPostForm /> : ''}
-            <div className={s.posts}>{postElements}</div>
-        </div>
+        <>
+            <Typography variant="h5">My posts</Typography>
+            {postElements}
+        </>
     );
 };
 

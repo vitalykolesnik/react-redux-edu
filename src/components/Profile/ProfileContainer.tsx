@@ -21,7 +21,7 @@ import { AppStateType } from 'redux/reduxStore';
 
 type MapStatePropsType = {
     userId: number | null
-    profile: ProfileType | null
+    profile: ProfileType
     status: string
     isLoading: boolean
 };

@@ -1,5 +1,6 @@
+import { Delete } from '@mui/icons-material';
+import { Box,  IconButton, Paper } from '@mui/material';
 import React, { useState } from 'react';
-import s from './FileIcon.module.css';
 
 type FileIconPropsType = {
 	index: number
@@ -20,9 +21,16 @@ export const FileIcon: React.FC<FileIconPropsType> = ({ index, file, remove}) =>
 	}
 
 	return (
-		<div className={s.fileIcon}>
-			<img src={preview} alt='ooops'></img>
-			<button onClick={onDelete}>x</button>
-		</div>
+		<Paper elevation={5} sx={{position: 'relative', m: 1}}>
+			<Box 
+				component='img' 
+				sx={{width: 100 , height: '100%', objectFit: 'cover'}} 
+				src={preview} 
+				alt='ooops'>
+			</Box>
+			<IconButton color='inherit' size={'small'} onClick={onDelete} sx={{position: 'absolute', top: 1, right: 1}}>
+				<Delete />
+			</IconButton>
+		</Paper>
 	)
 }

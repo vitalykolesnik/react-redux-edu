@@ -1,7 +1,7 @@
 import React from 'react';
+import { Card, CardContent, CardHeader, CardMedia, IconButton, Typography } from '@mui/material';
 import { setAvatar } from '../../../utils/setAvatar';
-
-import s from './ProfileInfo.module.css';
+import { PhotoCamera } from '@mui/icons-material';
 
 type PropsType ={
     name: string | null
@@ -19,25 +19,26 @@ const ProfileInfo: React.FC<PropsType> = ({ name, image, description, isOwner, u
     };
 
     return (
-        <div className={s.profileInfo}>
-            <div className={s.descriptionBlock}>
-                <h3>{name}</h3>
-                <img src={setAvatar(image)} alt="ooops" />
-                <div className={s.selectAvatar}>
-                    {isOwner && (
-                        <div>
-                            <input
-                                id="ava"
-                                name="ava"
-                                type={'file'}
-                                onChange={onMainPhotoSelected}
-                            />
-                        </div>
-                    )}
-                </div>
-                <div>{description}</div>
-            </div>
-        </div>
+        <Card sx={{height: 400}}>
+            <CardHeader
+                    title={name}
+                    action={
+                        <IconButton component='label'>
+                            <input hidden accept='image/*' type='file' onChange={onMainPhotoSelected}/>
+                            <PhotoCamera />
+                        </IconButton>
+                    }
+            >
+            </CardHeader>
+            <CardMedia 
+                    component='img' 
+                    src={setAvatar(image)} 
+                    alt="ooops"
+                    height='100%' />
+            <CardContent>
+                <Typography variant="body1">{description}</Typography>
+            </CardContent>
+        </Card>
     );
 };
 

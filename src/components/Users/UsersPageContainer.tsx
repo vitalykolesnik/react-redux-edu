@@ -10,7 +10,6 @@ import {
 import {
     getUsers,
     getIsLoading,
-    getIsSubscribing,
 } from '../../redux/usersSelectors';
 import { ProfileType } from '../types/types';
 import Users  from './Users'
@@ -20,7 +19,6 @@ type MapStatePropsType = {
     users: Array<ProfileType>,
     friends: Array<ProfileType>,
     isLoading: boolean,
-    isSubscribing: Array<number>,
     currentPage: number
     pageSize: number
 };
@@ -35,10 +33,18 @@ type OwnPropsType = {}
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 type StateType = {}
 
-class UsersContainer extends React.Component<PropsType, StateType>{
+class UsersContainer extends React.PureComponent<PropsType, StateType>{
     componentDidMount() {
         let { currentPage, pageSize, requestUsers } = this.props;
         requestUsers(currentPage, pageSize);
+    }
+
+    componentDidUpdate(prevProps: PropsType) {
+        if(prevProps.currentPage !== this.props.currentPage || 
+            prevProps.pageSize !== this.props.pageSize) {
+            let { currentPage, pageSize, requestUsers } = this.props;
+            requestUsers(currentPage, pageSize);
+        }
     }
 
     render() {
@@ -52,7 +58,6 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
         users: getUsers(state),
         friends: getFriends(state),
         isLoading: getIsLoading(state),
-        isSubscribing: getIsSubscribing(state),
         currentPage: getCurrentPage(state),
         pageSize: getPageSize(state)
     };

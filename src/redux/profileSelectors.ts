@@ -1,7 +1,7 @@
 import { ProfileType, PostType, NewsType } from './../components/types/types';
 import { AppStateType } from "./reduxStore";
 
-export const getProfile = (state: AppStateType): ProfileType | null=> {
+export const getProfile = (state: AppStateType): ProfileType => {
     return state.profilePage.profile;
 };
 

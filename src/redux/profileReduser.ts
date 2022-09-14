@@ -9,7 +9,7 @@ type ActionTypes = InferActionsTypes<typeof actions>
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 const initialState = {
-    profile: null as ProfileType | null,
+    profile: {} as ProfileType,
     allPosts: [] as Array<NewsType>,
     posts: [] as Array<PostType>,
     isLoading: false,

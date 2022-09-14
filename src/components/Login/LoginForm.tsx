@@ -1,8 +1,9 @@
 import React, { Dispatch } from 'react';
-import s from './Login.module.css';
 import { useDispatch } from 'react-redux';
-import { ErrorMessage, Field, Formik } from 'formik';
+import {  Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { Button, Grid } from '@mui/material';
+import TextField from 'components/other/Forms/TextField/TextField';
 
 type LoginFormType = {
     title: string
@@ -31,60 +32,33 @@ export const LoginForm: React.FC<LoginFormType> = ({ title, execute }) => {
 				validationSchema={validator}
 				onSubmit={onSubmit}
 		>
-        {({handleSubmit}) => (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <Field
-                    name="login"
-                    type="text"
-                    placeholder="Enter login"
-                />
-            </div>
-            <ErrorMessage name="login" component="div" className={s.validation} />
-            {/* <div className={s.validation}>{errors.login}</div> */}
-            <div>
-                <Field
-                    name="password"
-                    type="password"
-                    placeholder="Enter password"
-                />
-            </div>
-            <ErrorMessage name="password" component="div" className={s.validation} />
-            {/* <div className={s.validation}>{formik.errors.password}</div> */}
-            <div>
-                <button type="submit">{title}</button>
-            </div>
-        </form>  
+        {() => (
+            <Form>
+                <Grid container spacing={3} columns={1} marginY={2} >
+                    <Grid item xs={12} >
+                        <TextField
+                            name="login"
+                            type="text"
+                            placeholder="Enter login"
+                            />
+                    </Grid>
+              
+                    <Grid item xs={12}>
+                        <TextField
+                            name="password"
+                            type="password"
+                            placeholder="Enter password"
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Button type="submit">{title}</Button>
+                    </Grid>
+
+                </Grid>
+               
+            </Form>  
         )}
         </Formik>
     </div>)
 }
-        // <div>
-        // <Formik
-		// 		initialValues={{ login: '', password: '', }}
-		// 		validationSchema={validator}
-		// 		onSubmit={onSubmit}
-		// 	>
-		// 	{({errors,handleSubmit}) => (
-        // <form onSubmit={handleSubmit}>
-        //     <div>
-        //         <Field
-        //             name="login"
-        //             type="text"
-        //             placeholder="Enter login"
-        //         />
-        //     </div>
-        //     <div className={s.validation}>{formik.errors.login}</div>
-        //     <div>
-        //         <Field
-        //             name="password"
-        //             type="password"
-        //             placeholder="Enter password"
-        //         />
-        //     </div>
-        //     <div className={s.validation}>{formik.errors.password}</div>
-        //     <div>
-        //         <button type="submit">{title}</button>
-        //     </div>
-        // </form>
-        //

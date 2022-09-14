@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestLikePost } from '../../redux/profileReduser';
 import { getIsAuth, getUserId } from '../../redux/authSelectors';
-import s from './Likes.module.css';
 import { LikeType } from 'components/types/types';
 import { AppStateType } from 'redux/reduxStore';
 import { Dispatch } from 'redux';
+
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { IconButton } from '@mui/material';
 
 type PropsType = {
     postId: number
@@ -32,11 +34,9 @@ const Likes: React.FC<PropsType> = ({ postId, profileId, likes }) => {
     };
 
     return (
-        <div className={s.likes}>
-            <div className={s.itemLikesCount} onClick={onLike}>
-                <span>{isLiked ? '💗' : '🤍'}</span> {likes.length || 0}
-            </div>
-        </div>
+        <IconButton onClick={onLike} sx={{m: 1}}>
+            <FavoriteIcon  color={isLiked? "error": "primary"} />
+        </IconButton>
     );
 };
 

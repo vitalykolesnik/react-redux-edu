@@ -1,35 +1,26 @@
 import React from 'react';
+import {  Box, Button, Drawer } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
-import s from './Navbar.module.css';
+type PropsType = {
+    isOpen: boolean
+    show: (isVisible: boolean) => void
+}
 
-//@ts-ignore
-const setActive = ({ isActive }) => (isActive ? s.activeLink : '');
+const Navbar: React.FC<PropsType> = ({isOpen, show}) => {
+    const onSelect = () => {
+        show(false)
+    }
 
-const Navbar = () => {
     return (
-        <nav className={s.nav}>
-            <div className={s.item}>
-                <NavLink to="/profile" className={setActive}>
-                    Profile
-                </NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/dialogs" className={setActive}>
-                    Messages
-                </NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/news" className={setActive}>
-                    News
-                </NavLink>
-            </div>
-            <div className={s.item}>
-                <NavLink to="/users" className={setActive}>
-                    Find users
-                </NavLink>
-            </div>
-        </nav>
+        <Box>
+            <Drawer open={isOpen} onClick={onSelect} >
+                <Button component={NavLink} to="/profile">Profile</Button>
+                <Button component={NavLink} to="/dialogs">Messages</Button>
+                <Button component={NavLink} to="/news">News</Button>
+                <Button component={NavLink} to="/users">Find users</Button>
+            </Drawer>
+        </Box>
     );
 };
 

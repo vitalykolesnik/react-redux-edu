@@ -1,5 +1,4 @@
 import React from 'react';
-import s from './Dialogs.module.css';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { getMessages } from '../../redux/dialogsSelectors';
@@ -11,6 +10,7 @@ import Dialogs from './Dialogs';
 import Messages from './Messages/Messages';
 import {  MessageType, ProfileType } from 'components/types/types';
 import { AppStateType } from 'redux/reduxStore';
+import { Container, Typography } from '@mui/material';
 
 type MapStatePropsType = {
     friends: Array<ProfileType>,
@@ -35,11 +35,11 @@ class DialogsContainer extends React.Component<PropsType, StateType> {
 
     render() {
         return (
-            <div className={s.dialogsContainer}>
-                <h3>Messages</h3>
+            <Container sx={{mt:'5rem'}}>
+                <Typography variant="h4">Messages</Typography>
                 <Dialogs friends={this.props.friends} />
                 <Messages messages={this.props.messages} />
-            </div>
+            </Container>
         );
     }
 }

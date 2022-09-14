@@ -1,8 +1,0 @@
-.pagination:hover {
-    cursor: pointer;
-}
-
-.selectedPage {
-    font-weight: bold;
-    font-size: 1.2em;
-}

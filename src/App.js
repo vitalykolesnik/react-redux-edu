@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Navbar from './components/Navbar/Navbar';
+// import Navbar from './components/Navbar/Navbar';
 import DialogsContainer from './components/Dialogs/DialogsContainer';
 import NewsContainer from './components/News/NewsContainer';
 import UsersPageContainer from './components/Users/UsersPageContainer';
@@ -22,37 +22,19 @@ class App extends React.Component {
     render() {
         return this.props.initialized ? (
             <BrowserRouter>
-                <div className="app-wrapper">
-                    <Header />
-                    <Navbar />
-                    <div className="app-wrapper-content">
-                        <Routes>
-                            <Route
-                                path="/"
-                                element={<ProfilePageContainer />}
-                            />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/signup" element={<Signup />} />
-                            <Route
-                                path="/profile"
-                                element={<ProfilePageContainer />}
-                            />
-                            <Route
-                                path="/profile/:id"
-                                element={<ProfilePageContainer />}
-                            />
-                            <Route
-                                path="/dialogs"
-                                element={<DialogsContainer />}
-                            />
-                            <Route path="/news" element={<NewsContainer />} />
-                            <Route
-                                path="/users"
-                                element={<UsersPageContainer />}
-                            />
-                        </Routes>
-                    </div>
-                </div>
+                <Header />
+                <Routes>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
+                    <Route path="/profile" element={<ProfilePageContainer />} />
+                    <Route
+                        path="/profile/:id"
+                        element={<ProfilePageContainer />}
+                    />
+                    <Route path="/dialogs" element={<DialogsContainer />} />
+                    <Route path="/news" element={<NewsContainer />} />
+                    <Route path="/users" element={<UsersPageContainer />} />
+                </Routes>
             </BrowserRouter>
         ) : (
             <Preloader />

@@ -7,7 +7,7 @@ type ActionTypes = InferActionsTypes<typeof actions>
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 const initialState = {
-    initialized: false,
+    initialized: false ,
 };
 
 const actions = {
@@ -16,7 +16,7 @@ const actions = {
     }) as const
 }
 
-const appReduser = (state = initialState, action: any): InitialStateType => {
+const appReduser = (state= initialState, action: any): InitialStateType => {
     switch (action.type) {
         case 'APP/INITIALIZED': {
             return {

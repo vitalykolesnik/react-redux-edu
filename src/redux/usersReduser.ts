@@ -212,9 +212,15 @@ export const requestUsers = (currentPage: number, pageSize: number): ThunkType =
     };
 }; 
 
-export const requestUsersPage = (currentPage: number, pageSize: number): ThunkType => {
+export const requestCurrentPage = (currentPage: number): ThunkType => {
     return async (dispatch) => {
         dispatch(setCurrentUsersPage(currentPage));
+    };
+};
+
+export const requestUsersPage = (currentPage: number, pageSize: number): ThunkType => {
+    return async (dispatch) => {
+        dispatch(requestCurrentPage(currentPage));
         dispatch(requestUsers(currentPage, pageSize));
     };
 };

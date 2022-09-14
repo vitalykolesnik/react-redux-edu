@@ -1,19 +1,18 @@
-import React, { Dispatch, useEffect } from 'react';
+import React, { Dispatch, useCallback, useEffect } from 'react';
 import User from './User/User';
 import Preloader from '../other/Preloader/Preloader';
 import Paginator from './Paginator';
 import { ProfileType } from 'components/types/types';
 
-import s from './Users.module.css';
 import { useDispatch } from 'react-redux';
 import { requestFriends } from 'redux/usersReduser';
+import {  Container, Grid, Stack, TextField, Typography } from '@mui/material';
 
 type PropsType = {
     users: Array<ProfileType>,
     friends: Array<ProfileType>,
     userId: number | null,
     isLoading: boolean
-    isSubscribing: Array<number>,
 }
 
 const Users
@@ -22,38 +21,53 @@ const Users
     friends,
     userId,
     isLoading,
-    isSubscribing,
 }) => {
-    const dispatch: Dispatch<any>= useDispatch()
+    const dispatch: Dispatch<any> = useDispatch()
+    
+    const loadFriends = useCallback(() => {
+        dispatch(requestFriends())
+    }, [dispatch])
+
 
     useEffect(() => {
-        dispatch(requestFriends())
-    }, [dispatch, isSubscribing])
+        loadFriends()
+    }, [loadFriends, friends])
     
     const usersList = users.map((u) => (
-        <User
-            {...u}
-            key={u.id}
-            friends={friends}
-            isOwner={userId !== u.id}
-            isSubscribing={isSubscribing}
-        />
+        <Grid item xs={6} sm={4} md={3} key={u.id}>
+            <User
+                {...u}
+                key={u.id}
+                friends={friends}
+                isOwner={userId !== u.id}
+            />
+        </Grid>
     ));
 
     return (
-        <>
-            <div className={s.container}>
-                <h3>Users</h3>
-                {isLoading ? (
-                    <Preloader />
-                ) : (
-                    <div>
-                        <Paginator />
-                        <div className={s.usersPage}>{usersList}</div>
-                    </div>
-                )}
-            </div>
-        </>
+        <Container sx={{mt:'5rem', alignItems : 'center'}}>
+            <Typography variant="h4">Users</Typography>
+            {isLoading ? (
+                <Preloader />
+            ) : (
+                <Stack sx={{ mb: '3rem', alignItems : 'center'}}>
+                    {/* //Search */}
+                    <TextField
+                        fullWidth
+                        type='search'
+                        variant='standard'
+                        label='Search'
+                        sx={{ marginBlock : 1}}
+                        // value='Value'
+                        // onChange={onTyping}
+                    />
+                    <Paginator />
+                    <Grid container spacing={{xs: 1, sm: 2}}>
+                        {usersList}
+                    </Grid>
+                </Stack>
+            )}
+        </Container>
     );
 };
 

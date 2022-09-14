@@ -1,19 +1,25 @@
 import React from 'react';
-import s from './Login.module.css';
 import { login } from '../../redux/authReduser';
 import useRedirectComponent from '../hooks/useRedirectComponent';
 import { LoginForm } from './LoginForm';
+import { Box, Typography } from '@mui/material';
+import { style } from './Signup';
 
 const Login: React.FC = () => {
     const redirect = useRedirectComponent();
-
+  
     return (
-        <div className={s.container}>
-            {redirect}
-            <h3>Login</h3>
+      <>
+         {redirect}
+          <Box sx={style}>
+            <Typography variant="h6">
+              Login
+            </Typography>
             <LoginForm title="Login" execute={login} />
-        </div>
+          </Box>
+      </>
     );
+  
 };
 
 export default Login;

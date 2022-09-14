@@ -1,7 +1,7 @@
 import React from 'react';
-import s from './Messages.module.css';
 import MessageForm from './MessageForm';
 import { MessageType } from 'components/types/types';
+import { List, ListItem, ListItemText, Stack } from '@mui/material';
 
 type PropsType ={
     messages: Array<MessageType>
@@ -9,17 +9,19 @@ type PropsType ={
 
 const Messages: React.FC<PropsType>= ({ messages }) => {
     const messagesElements = messages.map((m) => (
-        <div className={s.message} key={m.id}>
-            {m.text}
-        </div>
-    ));
+        <ListItem key={m.id} >
+            <ListItemText primary={m.text} /> 
+        </ListItem>
+    ))
 
     return (
-        <div>
+        <Stack>
             <MessageForm />
-            <div className={s.messages}>{messagesElements}</div>
-        </div>
-    );
+            <List sx={{ width: '100%', maxWidth: 100, bgcolor: 'background.paper' }}>
+                {messagesElements}
+            </List>
+        </Stack>
+    )
 };
 
 export default Messages;

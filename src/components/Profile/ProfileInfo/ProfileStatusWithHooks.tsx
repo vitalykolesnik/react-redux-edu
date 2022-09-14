@@ -1,7 +1,7 @@
+import { Paper, TextField, Typography } from '@mui/material';
 import React, { Dispatch, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateUserStatus } from 'redux/profileReduser';
-import s from './ProfileStatus.module.css';
 
 type PropsType = {
     status: string
@@ -31,20 +31,21 @@ export const ProfileStatusWithHooks: React.FC<PropsType> = ({ status, isOwner })
     };
 
     return (
-        <div className={s.profileStatus}>
+        <Paper >
             {isOwner && editMode ? (
-                <input
+                <TextField
+                    fullWidth
                     autoFocus={true}
                     onChange={onStatusChange}
                     onBlur={onDisableEditMode}
                     value={statusState}
                 />
             ) : (
-                <span className={s.statusText} onDoubleClick={onEnableEditMode}>
+                <Typography onDoubleClick={onEnableEditMode} textAlign='center' sx={{paddingBlock: '1rem'}}> 
                     {statusState || 'No status'}
-                </span>
+                </Typography>
             )}
-        </div>
+        </Paper>
     );
 };
 
