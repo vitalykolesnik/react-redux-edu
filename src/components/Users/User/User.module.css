@@ -1,8 +1,7 @@
 .user {
     display: flex;
     flex-flow: column;
-    width: 400px;
-    height: 400px;
+    flex-grow: 0;
     margin: 0.5em 0.5em;
     padding: 1em;
     align-items: center;
@@ -12,17 +11,17 @@
     background-color: rgba(238, 211, 243, 0.836); 
 }
 
-.userMainInfo{
+.userLogin{
     text-align: center;
     color: white;
     text-shadow: 2px 1px 1px rgba(0, 0, 0, 0.8);
 }
 
 .user img{
-    height: 250px;
-    width: 300px;
+    height: 300px;
+    width: 350px;
     object-fit: cover;
-    background-color: aliceblue;
+    background-color: white;
     border-radius: 1.2em;
 }
 
@@ -41,5 +40,11 @@
     cursor: pointer;
     color: blue;
     background-color: white;
+    border-radius: 2em;
+}
+
+.user button:disabled{
+    color: darkgray;
+    background-color: grey;
     border-radius: 2em;
 }

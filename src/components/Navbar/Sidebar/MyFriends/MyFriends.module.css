@@ -1,8 +1,0 @@
-.item {
-  display:flex;
-  height: 100%;
-  flex-flow: column nowrap;
-  justify-content: flex-start;
-  align-items: center;
-}
-

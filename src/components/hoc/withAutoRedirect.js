@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import { getIsAuth } from 'redux/authSelectors';
 
 export const withAutoRedirectToMain = (Component) => {
     const RedirectComponent = (props) => {
-        const isAuth = useSelector((state) => state.auth.isAuth);
-        const navigate = useNavigate();
+        const isAuth = useSelector((state) => getIsAuth(state));
 
-        useEffect(() => {
-            if (isAuth) navigate('/profile');
-        });
+        if (isAuth) {
+            return <Navigate to={'/profile'} />;
+        }
 
         return <Component {...props} />;
     };

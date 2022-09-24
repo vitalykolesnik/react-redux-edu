@@ -1,13 +1,27 @@
 .profileInfo {
     background-color: white;
     border-radius: 1em;
+    position: relative;
 }
 
 .profileInfo img{
     height: 400px;
     object-fit: cover; 
+    
 }
 
 .descriptionBlock {
     padding: 1em;
 }
+
+.profileInfo .selectAvatar {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+}
+
+.profileInfo .selectAvatar input{
+   width: 200px;
+   user-select: none;
+}
+
